@@ -1,0 +1,6 @@
+{
+  "name": "Coorg Heritage Hill View Resort",
+  "description": "Boutique 13-room hilltop sanctuary in Madikeri, Coorg. Centrally located 5km from Raja's Seat and top attractions with panoramic hill views, evening fire camp, natural stream, rain dance, and authentic dining.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
