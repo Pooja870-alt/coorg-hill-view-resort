@@ -15,7 +15,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', variant = 'dark', co
       <img
         src="/logo.png"
         alt="Coorg Heritage Hill View Resort logo"
-        className={`shrink-0 object-contain ${compact ? 'h-8 w-auto' : 'h-10 w-auto'}`}
+        className={`shrink-0 object-contain ${compact ? 'h-12 w-auto' : 'h-16 w-auto'}`}
       />
 
       {/* Typography */}

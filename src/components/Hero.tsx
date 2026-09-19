@@ -34,7 +34,7 @@ interface HeroProps {
 // ---------------------------------------------------------------------------
 const HeroIntro: React.FC<{ onDone: () => void }> = ({ onDone }) => {
   useEffect(() => {
-    const t = setTimeout(onDone, 1800);
+    const t = setTimeout(onDone, 2400);
     return () => clearTimeout(t);
   }, [onDone]);
 
@@ -46,28 +46,40 @@ const HeroIntro: React.FC<{ onDone: () => void }> = ({ onDone }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.9, ease: easeSmooth as number[], delay: 0.1 }}
     >
+      {/* Logo — scale-in first */}
+      <motion.img
+        src="/logo.png"
+        alt="Coorg Heritage Hill View Resort"
+        className="w-24 sm:w-28 object-contain relative z-10"
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7, ease: easeSmooth as number[], delay: 0.15 }}
+      />
+
       {/* Horizontal gold rule that expands outward */}
       <motion.div
-        className="absolute top-1/2 left-1/2 h-px bg-[#E2C98F]/60"
-        initial={{ width: 0, x: '-50%', y: '-50%' }}
-        animate={{ width: '40vw', x: '-50%', y: '-50%' }}
-        transition={{ duration: 0.9, ease: ease as number[], delay: 0.1 }}
+        className="h-px bg-[#E2C98F]/50 mt-6 relative z-10"
+        initial={{ width: 0 }}
+        animate={{ width: '14rem' }}
+        transition={{ duration: 0.8, ease: ease as number[], delay: 0.6 }}
       />
+
       {/* Resort name fades in */}
       <motion.span
-        className="font-serif text-sm sm:text-base tracking-[0.35em] uppercase text-[#E2C98F] relative z-10"
-        initial={{ opacity: 0, y: 6 }}
+        className="font-serif text-sm sm:text-base tracking-[0.3em] uppercase text-[#E2C98F] mt-4 relative z-10"
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: ease as number[], delay: 0.5 }}
+        transition={{ duration: 0.65, ease: ease as number[], delay: 0.95 }}
       >
         Coorg Heritage Hill View Resort
       </motion.span>
+
       {/* Altitude tag */}
       <motion.span
         className="font-sans text-[11px] tracking-widest uppercase text-stone-400 mt-2 relative z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, ease: ease as number[], delay: 0.9 }}
+        transition={{ duration: 0.55, ease: ease as number[], delay: 1.35 }}
       >
         Madikeri · 1,150 m
       </motion.span>
