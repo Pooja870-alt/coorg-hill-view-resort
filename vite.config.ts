@@ -15,12 +15,12 @@ export default defineConfig(() => {
       hmr: process.env.DISABLE_HMR !== 'true',
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
       host: '0.0.0.0',
-      allowedHosts: 'all',
+      allowedHosts: 'true',
     },
     preview: {
       host: '0.0.0.0',
       port: parseInt(process.env.PORT || '10000'),
-      allowedHosts: 'all',
+      allowedHosts: 'true',
     },
   };
 });
