@@ -1,66 +1,107 @@
 import React from 'react';
-import { 
-  Wind, 
-  UtensilsCrossed, 
-  Bell, 
-  Flame, 
-  Wifi, 
-  Car, 
-  Zap, 
-  Sparkles, 
-  Coffee, 
-  Check, 
+import { motion, useReducedMotion } from 'motion/react';
+import {
+  Wind,
+  UtensilsCrossed,
+  Bell,
+  Flame,
+  Wifi,
+  Car,
+  Zap,
+  Sparkles,
+  Coffee,
+  Check,
   MessageCircle,
-  ShieldCheck
+  ShieldCheck,
 } from 'lucide-react';
 import { AMENITIES_DATA, RESORT_INFO } from '../data/resortData';
+import { ease, easeSmooth, fadeUp, scaleSettle, viewport } from '../lib/motion';
 
 export const AmenitiesSection: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   const getAmenityIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Wind':
-        return <Wind className="w-6 h-6 text-[#1E4D38]" />;
-      case 'UtensilsCrossed':
-        return <UtensilsCrossed className="w-6 h-6 text-amber-700" />;
-      case 'Bell':
-        return <Bell className="w-6 h-6 text-[#C5A059]" />;
-      case 'Flame':
-        return <Flame className="w-6 h-6 text-amber-600" />;
-      case 'Wifi':
-        return <Wifi className="w-6 h-6 text-blue-600" />;
-      case 'Car':
-        return <Car className="w-6 h-6 text-emerald-700" />;
-      case 'Zap':
-        return <Zap className="w-6 h-6 text-amber-500" />;
-      default:
-        return <Sparkles className="w-6 h-6 text-[#C5A059]" />;
+      case 'Wind':           return <Wind           className="w-6 h-6 text-[#1E4D38]" />;
+      case 'UtensilsCrossed':return <UtensilsCrossed className="w-6 h-6 text-amber-700" />;
+      case 'Bell':           return <Bell           className="w-6 h-6 text-[#C5A059]" />;
+      case 'Flame':          return <Flame          className="w-6 h-6 text-amber-600" />;
+      case 'Wifi':           return <Wifi           className="w-6 h-6 text-blue-600" />;
+      case 'Car':            return <Car            className="w-6 h-6 text-emerald-700" />;
+      case 'Zap':            return <Zap            className="w-6 h-6 text-amber-500" />;
+      default:               return <Sparkles       className="w-6 h-6 text-[#C5A059]" />;
     }
   };
+
+  const childTransition = { duration: prefersReducedMotion ? 0.01 : 0.7, ease: ease as number[] };
 
   return (
     <section id="amenities" className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1E2522]">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        {/* Section Heading */}
+
+        {/* ── Section heading ─────────────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-widest mb-3">
-            <UtensilsCrossed className="w-3.5 h-3.5 text-[#C5A059]" />
-            <span>Essential Resort Comforts</span>
+          <div className="overflow-hidden inline-block mb-3">
+            <motion.div
+              initial={prefersReducedMotion ? {} : { y: '100%', opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={viewport}
+              transition={childTransition}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-widest"
+            >
+              <UtensilsCrossed className="w-3.5 h-3.5 text-[#C5A059]" />
+              <span>Essential Resort Comforts</span>
+            </motion.div>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#0A2016] tracking-tight leading-tight mb-4">
-            AC, Non-AC, Authentic Dining &amp; Room Services
-          </h2>
-          <p className="font-sans text-base text-stone-600 leading-relaxed">
+
+          <div className="overflow-hidden mb-4">
+            <motion.h2
+              initial={prefersReducedMotion ? {} : { y: '100%', opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={viewport}
+              transition={{ ...childTransition, delay: 0.1 }}
+              className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#0A2016] tracking-tight leading-tight"
+            >
+              AC, Non-AC, Authentic Dining &amp; Room Services
+            </motion.h2>
+          </div>
+
+          <motion.p
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewport}
+            transition={{ ...childTransition, delay: 0.2 }}
+            className="font-sans text-base text-stone-600 leading-relaxed"
+          >
             Thoughtfully designed for tranquil hill station living. Savor delicious Kodava specialties in our scenic courtyard or enjoy warm meals delivered directly to your balcony.
-          </p>
+          </motion.p>
         </div>
 
-        {/* Feature Split: Dining & Kodava Culinary Highlight */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16 bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-xl">
-          <div className="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-md group">
-            <img
+        {/* ── Dining feature split ─────────────────────────────────────── */}
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: prefersReducedMotion ? 0.01 : 0.8, ease: easeSmooth as number[] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16 bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-xl"
+        >
+          {/* Dining image with clip-path reveal */}
+          <motion.div
+            className="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-md group"
+            initial={prefersReducedMotion ? {} : { clipPath: 'inset(0 100% 0 0)' }}
+            whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
+            viewport={viewport}
+            transition={{ duration: prefersReducedMotion ? 0.01 : 1.0, ease: easeSmooth as number[] }}
+          >
+            <motion.img
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK7m5BFTF55J0I9tBVtfJMq7rZ1TnCOKQeqe-2mBt3iWzbDK58LsJjqy1SQcWQa3LujvapV8EQ8rgVoanGxd-UVIcBqf_HPWFVwoXBqSHnqpzeeraBI2BOJW6jNz4dk6hK0IcKEolNSF1PfC-tPzza9ngu3mkwSwBy8Wyxa35QHZ0EqYZzguCzfUHkf7Zr1b_GQptYUloqAzoyegi3Our3eGe8mAUxgUAS39FRvaa5GGc_wLb0duDwOAiBDCHgkR70OcY"
               alt="In-house resort restaurant and rustic open-air dining courtyard"
-              className="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-700"
+              className="w-full h-80 sm:h-96 object-cover"
+              initial={prefersReducedMotion ? {} : { scale: 1.08 }}
+              whileInView={{ scale: 1 }}
+              viewport={viewport}
+              transition={{ duration: prefersReducedMotion ? 0.01 : 1.1, ease: easeSmooth as number[] }}
+              whileHover={prefersReducedMotion ? {} : { scale: 1.04 }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white">
@@ -71,85 +112,127 @@ export const AmenitiesSection: React.FC = () => {
                 In-House Restaurant &amp; Courtyard Dining
               </h3>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="lg:col-span-6 space-y-5">
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C5A059] uppercase tracking-wider">
+          {/* Text side */}
+          <motion.div
+            className="lg:col-span-6 space-y-5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+            }}
+          >
+            <motion.div
+              variants={prefersReducedMotion ? {} : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+              transition={childTransition}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C5A059] uppercase tracking-wider"
+            >
               <Coffee className="w-4 h-4" />
               <span>Farm-Fresh Local Spices</span>
+            </motion.div>
+
+            <div className="overflow-hidden">
+              <motion.h3
+                variants={prefersReducedMotion ? {} : { hidden: { y: '100%', opacity: 0 }, visible: { y: 0, opacity: 1 } }}
+                transition={childTransition}
+                className="font-serif text-2xl sm:text-3xl font-medium text-[#0A2016] leading-snug"
+              >
+                Authentic Kodava Specialties, Multi-Cuisine &amp; Balcony Service
+              </motion.h3>
             </div>
 
-            <h3 className="font-serif text-2xl sm:text-3xl font-medium text-[#0A2016] leading-snug">
-              Authentic Kodava Specialties, Multi-Cuisine &amp; Balcony Service
-            </h3>
-
-            <p className="text-sm text-stone-600 leading-relaxed font-light">
+            <motion.p
+              variants={prefersReducedMotion ? {} : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+              transition={childTransition}
+              className="text-sm text-stone-600 leading-relaxed font-light"
+            >
               Experience the distinctive culinary heritage of Coorg. From aromatic traditional dishes simmered with indigenous Kachampuli black vinegar to beloved North and South Indian comfort staples, our cooks prepare fresh food tailored to your palate.
-            </p>
+            </motion.p>
 
-            {/* Menu Highlights List */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-100">
-                <span className="font-bold text-xs text-[#0A2016] block mb-1">Authentic Kodava Flavors</span>
-                <p className="text-xs text-stone-500">Pandi Curry, Kadambuttu (steamed rice cakes), and Akki Roti with spicy chutneys.</p>
-              </div>
+            <motion.div
+              variants={prefersReducedMotion ? {} : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+              transition={childTransition}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2"
+            >
+              {[
+                { title: 'Authentic Kodava Flavors', desc: 'Pandi Curry, Kadambuttu (steamed rice cakes), and Akki Roti with spicy chutneys.' },
+                { title: 'Multi-Cuisine Favorites',  desc: 'Flavorful Biryanis, hot tandoori kebabs, paneer gravies, and mild kids dishes.' },
+                { title: 'Prompt Room Services',     desc: 'Hot meals, evening tea, and snacks served directly to your room or scenic balcony.' },
+                { title: 'Bonfire Barbecue Starters',desc: 'Sizzling barbecue skewers and hot soup beside the crackling evening fire camp.' },
+              ].map(({ title, desc }) => (
+                <div key={title} className="p-3.5 rounded-xl bg-stone-50 border border-stone-100">
+                  <span className="font-bold text-xs text-[#0A2016] block mb-1">{title}</span>
+                  <p className="text-xs text-stone-500">{desc}</p>
+                </div>
+              ))}
+            </motion.div>
 
-              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-100">
-                <span className="font-bold text-xs text-[#0A2016] block mb-1">Multi-Cuisine Favorites</span>
-                <p className="text-xs text-stone-500">Flavorful Biryanis, hot tandoori kebabs, paneer gravies, and mild kids dishes.</p>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-100">
-                <span className="font-bold text-xs text-[#0A2016] block mb-1">Prompt Room Services</span>
-                <p className="text-xs text-stone-500">Hot meals, evening tea, and snacks served directly to your room or scenic balcony.</p>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-100">
-                <span className="font-bold text-xs text-[#0A2016] block mb-1">Bonfire Barbecue Starters</span>
-                <p className="text-xs text-stone-500">Sizzling barbecue skewers and hot soup beside the crackling evening fire camp.</p>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <a
+            <motion.div
+              variants={prefersReducedMotion ? {} : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+              transition={childTransition}
+              className="pt-2"
+            >
+              <motion.a
                 href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hi,%20could%20you%20please%20share%20the%20current%20dining%20menu%20and%20food%20arrangements%20at%20Coorg%20Heritage%20Hill%20View%20Resort?`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A2016] text-white hover:bg-[#133E2B] text-xs font-semibold uppercase tracking-wider shadow transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A2016] text-white hover:bg-[#133E2B] text-xs font-semibold uppercase tracking-wider shadow transition-colors"
+                whileHover={prefersReducedMotion ? {} : { scale: 1.04 }}
+                whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
+                transition={{ duration: 0.18, ease: ease as number[] }}
               >
                 <MessageCircle className="w-4 h-4 text-[#E2C98F]" />
                 <span>Inquire About Food Menu &amp; Meals</span>
-              </a>
-            </div>
-          </div>
-        </div>
+              </motion.a>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
-        {/* Complete Core Amenities Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* ── Amenities grid ───────────────────────────────────────────── */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+          }}
+        >
           {AMENITIES_DATA.map((amenity) => (
-            <div
+            <motion.div
               key={amenity.id}
-              className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+              variants={
+                prefersReducedMotion
+                  ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                  : { hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } }
+              }
+              transition={{ duration: prefersReducedMotion ? 0.01 : 0.65, ease: easeSmooth as number[] }}
+              className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:shadow-lg transition-[box-shadow,transform] duration-300 flex flex-col justify-between group hover:-translate-y-1"
+              style={{ willChange: 'transform' }}
             >
               <div>
-                <div className="w-12 h-12 rounded-xl bg-stone-50 border border-stone-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <motion.div
+                  className="w-12 h-12 rounded-xl bg-stone-50 border border-stone-100 flex items-center justify-center mb-4"
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.12, rotate: 3 }}
+                  transition={{ duration: 0.25, ease: ease as number[] }}
+                >
                   {getAmenityIcon(amenity.iconName)}
-                </div>
-                <h4 className="font-serif text-lg text-[#0A2016] font-semibold mb-2">
-                  {amenity.title}
-                </h4>
-                <p className="text-xs text-stone-600 leading-relaxed">
-                  {amenity.description}
-                </p>
+                </motion.div>
+                <h4 className="font-serif text-lg text-[#0A2016] font-semibold mb-2">{amenity.title}</h4>
+                <p className="text-xs text-stone-600 leading-relaxed">{amenity.description}</p>
               </div>
 
               <div className="mt-4 pt-3 border-t border-stone-100 flex items-center gap-1 text-[11px] font-bold text-emerald-700">
                 <Check className="w-3.5 h-3.5" />
                 <span>Standard Feature</span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
