@@ -51,7 +51,7 @@ export const ReviewsAndFAQ: React.FC = () => {
   const childTransition = { duration: prefersReducedMotion ? 0.01 : 0.65, ease: ease as number[] };
 
   return (
-    <section id="faq" className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1E2522]">
+    <section id="faq" className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
         {/* ── Reviews ─────────────────────────────────────────────────── */}
@@ -76,7 +76,7 @@ export const ReviewsAndFAQ: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={viewport}
                 transition={{ ...childTransition, delay: 0.1 }}
-                className="font-serif text-3xl sm:text-4xl font-normal text-[#0A2016] tracking-tight"
+                className="font-serif text-3xl sm:text-4xl font-normal text-[#1a1a1a] tracking-tight"
               >
                 Beloved by Nature Lovers &amp; Families
               </motion.h2>
@@ -118,10 +118,10 @@ export const ReviewsAndFAQ: React.FC = () => {
 
                 <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
                   <div>
-                    <h4 className="font-serif font-semibold text-sm text-[#0A2016]">{rev.name}</h4>
+                    <h4 className="font-serif font-semibold text-sm text-[#1a1a1a]">{rev.name}</h4>
                     <span className="text-[11px] text-stone-500">{rev.location}</span>
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-1 rounded-md">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#C5A059] bg-amber-50 px-2 py-1 rounded-md">
                     {rev.highlight}
                   </span>
                 </div>
@@ -139,7 +139,7 @@ export const ReviewsAndFAQ: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={viewport}
                 transition={childTransition}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-widest"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 text-stone-700 text-xs font-bold uppercase tracking-widest"
               >
                 <HelpCircle className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>Everything You Need to Know</span>
@@ -152,7 +152,7 @@ export const ReviewsAndFAQ: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={viewport}
                 transition={{ ...childTransition, delay: 0.1 }}
-                className="font-serif text-3xl sm:text-4xl text-[#0A2016] font-normal tracking-tight"
+                className="font-serif text-3xl sm:text-4xl text-[#1a1a1a] font-normal tracking-tight"
               >
                 Frequently Asked Questions
               </motion.h3>
@@ -201,14 +201,14 @@ export const ReviewsAndFAQ: React.FC = () => {
                     onClick={() => toggleAccordion(idx)}
                     className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4"
                   >
-                    <span className="font-serif text-base sm:text-lg font-medium text-[#0A2016]">
+                    <span className="font-serif text-base sm:text-lg font-medium text-[#1a1a1a]">
                       {faq.question}
                     </span>
                     <motion.div
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: prefersReducedMotion ? 0.01 : 0.3, ease: ease as number[] }}
                       className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300 ${
-                        isOpen ? 'bg-[#0A2016] text-[#E2C98F]' : 'bg-stone-100 text-stone-600'
+                        isOpen ? 'bg-white text-[#C5A059]' : 'bg-stone-100 text-stone-600'
                       }`}
                     >
                       <ChevronDown className="w-4 h-4" />
@@ -246,7 +246,7 @@ export const ReviewsAndFAQ: React.FC = () => {
             className="mt-12 p-6 rounded-2xl bg-stone-100 border border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
           >
             <div>
-              <h4 className="font-serif font-medium text-base text-[#0A2016]">
+              <h4 className="font-serif font-medium text-base text-[#1a1a1a]">
                 Have a custom requirement or planning a group trip?
               </h4>
               <p className="text-xs text-stone-500 mt-0.5">
@@ -256,7 +256,7 @@ export const ReviewsAndFAQ: React.FC = () => {
             <div className="flex items-center gap-3 shrink-0">
               <motion.a
                 href={`tel:${RESORT_INFO.phone}`}
-                className="px-4 py-2.5 rounded-xl bg-[#0A2016] text-white hover:bg-[#133E2B] text-xs font-semibold tracking-wider uppercase transition-colors"
+                className="px-4 py-2.5 rounded-xl bg-white text-[#1a1a1a] hover:bg-stone-100 text-xs font-semibold tracking-wider uppercase transition-colors"
                 whileHover={prefersReducedMotion ? {} : { scale: 1.04 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
                 transition={{ duration: 0.18, ease: ease as number[] }}
@@ -267,7 +267,7 @@ export const ReviewsAndFAQ: React.FC = () => {
                 href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hello%20Coorg%20Heritage%20Hill%20View%20Resort,%20I%20have%20a%20question.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold tracking-wider uppercase transition-colors"
+                className="px-4 py-2.5 rounded-xl bg-[#C5A059] hover:bg-amber-500 text-[#1a1a1a] text-xs font-semibold tracking-wider uppercase transition-colors"
                 whileHover={prefersReducedMotion ? {} : { scale: 1.04 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
                 transition={{ duration: 0.18, ease: ease as number[] }}

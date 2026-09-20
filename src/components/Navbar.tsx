@@ -34,13 +34,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
   }, []);
 
   const navLinks = [
-    { name: 'Overview', href: '#overview' },
-    { name: '13 Suites', href: '#rooms' },
-    { name: 'Highlights & Activities', href: '#highlights' },
-    { name: 'Central Tourist Hub', href: '#tourist-hub' },
-    { name: 'Amenities & Dining', href: '#amenities' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'FAQ & Contact', href: '#faq' },
+    { name: 'Overview',            href: '#overview' },
+    { name: '13 Suites',           href: '#rooms' },
+    { name: 'Highlights',          href: '#highlights' },
+    { name: 'Amenities & Dining',  href: '#amenities' },
+    { name: 'Tourist Places',      href: '#tourist-hub' },
+    { name: 'Gallery',             href: '#gallery' },
+    { name: 'Reviews & FAQ',       href: '#faq' },
   ];
 
   return (
@@ -53,27 +53,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
     >
       {/* Top announcement bar */}
       <motion.div
-        className="bg-[#0A2016] text-[#FAF8F5] border-b border-[#1E4D38]/40 px-4 sm:px-8 py-1.5 text-xs font-medium"
+        className="bg-white text-[#1a1a1a] border-b border-stone-200 px-4 sm:px-8 py-1.5 text-xs font-medium"
         initial={prefersReducedMotion ? {} : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease: ease as number[], delay: 0.5 }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="hidden md:inline-flex items-center gap-1.5 text-[#E2C98F]">
+            <span className="hidden md:inline-flex items-center gap-1.5 text-[#C5A059]">
               <Sparkles className="w-3.5 h-3.5" />
               <span>13 Boutique Rooms • 5km from Raja's Seat</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 text-stone-300">
+            <span className="inline-flex items-center gap-1.5 text-stone-600">
               <MapPin className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span className="font-semibold text-white">Centre Point</span> of All Coorg Tourist Sights
+              <span className="font-semibold text-[#1a1a1a]">Centre Point</span> of All Coorg Tourist Sights
             </span>
           </div>
 
           <div className="flex items-center gap-4 sm:gap-6">
             <a
               href={`tel:${RESORT_INFO.phone}`}
-              className="flex items-center gap-1.5 text-stone-200 hover:text-[#E2C98F] transition-colors"
+              className="flex items-center gap-1.5 text-stone-700 hover:text-[#C5A059] transition-colors"
               title="Call Resort Desk"
             >
               <Phone className="w-3.5 h-3.5 text-[#C5A059]" />
@@ -84,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
               href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hello%20Coorg%20Heritage%20Hill%20View%20Resort,%20I%20would%20like%20to%20inquire%20about%20room%20availability.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1 text-[#25D366] hover:text-[#4ade80] transition-colors"
+              className="hidden sm:inline-flex items-center gap-1 text-[#C5A059] hover:text-[#C5A059] transition-colors"
             >
               <MessageCircle className="w-3.5 h-3.5" />
               <span>WhatsApp</span>
@@ -92,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
             <a
               href={`mailto:${RESORT_INFO.email}`}
-              className="hidden lg:inline-flex items-center gap-1 text-stone-300 hover:text-[#E2C98F] transition-colors"
+              className="hidden lg:inline-flex items-center gap-1 text-stone-600 hover:text-[#C5A059] transition-colors"
             >
               <Mail className="w-3.5 h-3.5 text-[#C5A059]" />
               <span>{RESORT_INFO.email}</span>
@@ -146,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                     : { hidden: { opacity: 0, y: -6 }, visible: { opacity: 1, y: 0 } }
                 }
                 transition={{ duration: 0.4, ease: ease as number[] }}
-                className="hover:text-[#0A2016] relative py-1 transition-colors group/link"
+                className="hover:text-[#1a1a1a] relative py-1 transition-colors group/link"
               >
                 {link.name}
                 {/* Animated underline */}
@@ -167,11 +167,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
               href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hello%20Coorg%20Heritage%20Hill%20View%20Resort,%20I%20would%20like%20to%20check%20room%20availability%20and%20rates.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 hover:bg-emerald-100 text-xs font-semibold transition-all hover:scale-[1.02]"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-stone-100 text-stone-700 border border-stone-200 hover:bg-stone-200 text-xs font-semibold transition-all hover:scale-[1.02]"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A059] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C5A059]" />
               </span>
               <span>WhatsApp Desk</span>
             </a>
@@ -182,9 +182,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
               whileHover={prefersReducedMotion ? {} : { scale: 1.04 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
               transition={{ duration: 0.18, ease: ease as number[] }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0A2016] text-[#FAF8F5] hover:bg-[#133E2B] text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-md hover:shadow-lg transition-colors"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white text-[#1a1a1a] hover:bg-stone-100 text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-md hover:shadow-lg transition-colors"
             >
-              <CalendarCheck className="w-4 h-4 text-[#E2C98F]" />
+              <CalendarCheck className="w-4 h-4 text-[#C5A059]" />
               <span>Book Your Stay</span>
             </motion.button>
 
@@ -253,7 +253,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                       : { hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }
                   }
                   transition={{ duration: 0.28, ease: ease as number[] }}
-                  className="py-2 border-b border-stone-100 hover:text-[#0A2016] flex items-center justify-between"
+                  className="py-2 border-b border-stone-100 hover:text-[#1a1a1a] flex items-center justify-between"
                 >
                   <span>{link.name}</span>
                   <span className="text-[#C5A059] text-xs">→</span>
@@ -278,7 +278,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hi%20Coorg%20Heritage%20Hill%20View%20Resort`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 text-white font-semibold text-sm"
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#C5A059] text-[#1a1a1a] font-semibold text-sm"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>WhatsApp Concierge</span>

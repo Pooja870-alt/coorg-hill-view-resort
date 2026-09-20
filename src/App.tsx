@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { CentralTouristHub } from './components/CentralTouristHub';
-import { KeyHighlights } from './components/KeyHighlights';
 import { RoomsSection } from './components/RoomsSection';
+import { KeyHighlights } from './components/KeyHighlights';
 import { AmenitiesSection } from './components/AmenitiesSection';
+import { CentralTouristHub } from './components/CentralTouristHub';
 import { PhotoGallery } from './components/PhotoGallery';
 import { ReviewsAndFAQ } from './components/ReviewsAndFAQ';
 import { Footer } from './components/Footer';
@@ -40,38 +40,37 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1E2522] selection:bg-[#C5A059]/30 selection:text-[#0A2016]">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1a1a1a] selection:bg-[#C5A059]/30 selection:text-[#1a1a1a]">
       {/* Fixed Header & Navigation */}
       <Navbar onOpenBooking={handleOpenBooking} />
 
-      {/* Main Content Area */}
       <main className="w-full">
-        {/* 1. Hero with WebGL / Motion & Quick Booking Bar */}
+        {/* 1. Hero — left text + right slideshow */}
         <Hero onOpenBookingWithDetails={handleOpenBookingWithDetails} />
 
-        {/* 2. Strategic Focus: The Central Tourist Hub (Raja's Seat 5km, Cariappa Museum 5km, Omkareshwara Temple 5km, Abbey Falls 10km) */}
-        <CentralTouristHub />
-
-        {/* 3. Highlighted Activities: Hillview, Fire Camp, Water Stream, Rain Dance, Indoor Games */}
-        <KeyHighlights />
-
-        {/* 4. The 13 Handcrafted Rooms Collection (AC & Non-AC) */}
+        {/* 2. Rooms — 13 handcrafted suites */}
         <RoomsSection onSelectRoomForBooking={handleSelectRoomForBooking} />
 
-        {/* 5. Amenities & Authentic Kodava Restaurant Dining */}
+        {/* 3. Highlights & Activities */}
+        <KeyHighlights />
+
+        {/* 4. Amenities & Dining */}
         <AmenitiesSection />
 
-        {/* 6. Photo Gallery with Category Filters & Lightbox */}
+        {/* 5. Tourist Places Nearby */}
+        <CentralTouristHub />
+
+        {/* 6. Photo Gallery */}
         <PhotoGallery />
 
-        {/* 7. Verified Guest Experiences & FAQ Accordion */}
+        {/* 7. Reviews & FAQ */}
         <ReviewsAndFAQ />
       </main>
 
-      {/* Footer with Full Contact (9019563004, Email, Address) & Sticky Mobile Bar */}
+      {/* Footer */}
       <Footer onOpenBooking={handleOpenBooking} />
 
-      {/* Interactive Reservation & Tariff Calculation Modal */}
+      {/* Booking Modal */}
       <BookingInquiryModal
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}
@@ -80,4 +79,3 @@ export default function App() {
     </div>
   );
 }
-

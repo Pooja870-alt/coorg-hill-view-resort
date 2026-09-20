@@ -30,9 +30,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
 
   return (
     <>
-      <footer className="w-full bg-[#0A2016] text-[#FAF8F5] pt-16 sm:pt-20 pb-28 sm:pb-16 border-t border-white/10 relative overflow-hidden">
+      <footer className="w-full bg-white text-[#1a1a1a] pt-16 sm:pt-20 pb-28 sm:pb-16 border-t border-stone-200 relative overflow-hidden">
         {/* Background glow */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#1E4D38]/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
           {/* Grid columns — stagger on scroll */}
@@ -56,26 +56,26 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
               transition={childTransition}
               className="lg:col-span-2 space-y-4"
             >
-              <Logo variant="light" />
+              <Logo variant="dark" />
 
-              <p className="text-xs sm:text-sm text-stone-300 font-light leading-relaxed max-w-sm mt-3">
+              <p className="text-xs sm:text-sm text-stone-600 font-light leading-relaxed max-w-sm mt-3">
                 An intimate hilltop sanctuary of only 13 boutique rooms in Madikeri, Coorg. Centrally positioned to let you explore Raja's Seat, Abbey Falls, and historic temples with zero mountain travel fatigue.
               </p>
 
-              <div className="space-y-2 pt-2 text-xs text-stone-300">
+              <div className="space-y-2 pt-2 text-xs text-stone-600">
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-[#E2C98F] shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
                   <span>{RESORT_INFO.address}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Phone className="w-4 h-4 text-[#E2C98F] shrink-0" />
-                  <a href={`tel:${RESORT_INFO.phone}`} className="hover:text-[#E2C98F] transition-colors font-semibold">
+                  <Phone className="w-4 h-4 text-[#C5A059] shrink-0" />
+                  <a href={`tel:${RESORT_INFO.phone}`} className="hover:text-[#C5A059] transition-colors font-semibold">
                     {RESORT_INFO.phoneDisplay}
                   </a>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Mail className="w-4 h-4 text-[#E2C98F] shrink-0" />
-                  <a href={`mailto:${RESORT_INFO.email}`} className="hover:text-[#E2C98F] transition-colors">
+                  <Mail className="w-4 h-4 text-[#C5A059] shrink-0" />
+                  <a href={`mailto:${RESORT_INFO.email}`} className="hover:text-[#C5A059] transition-colors">
                     {RESORT_INFO.email}
                   </a>
                 </div>
@@ -86,14 +86,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
                   href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hi%20Coorg%20Heritage%20Hill%20View%20Resort`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-colors"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#C5A059] hover:bg-amber-400 text-[#1a1a1a] text-xs font-semibold transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>WhatsApp Concierge</span>
                 </a>
                 <button
                   onClick={onOpenBooking}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-[#E2C98F] text-xs font-semibold transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-stone-100 hover:bg-stone-100 text-[#C5A059] text-xs font-semibold transition-colors"
                 >
                   <CalendarCheck className="w-4 h-4" />
                   <span>Book a Room</span>
@@ -111,8 +111,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
               transition={childTransition}
               className="space-y-3"
             >
-              <h4 className="font-serif text-base text-[#E2C98F] font-semibold">Sanctuary Living</h4>
-              <ul className="space-y-2 text-xs text-stone-300 font-light">
+              <h4 className="font-serif text-base text-[#C5A059] font-semibold">Sanctuary Living</h4>
+              <ul className="space-y-2 text-xs text-stone-600 font-light">
                 {[
                   ['Resort Overview',          '#overview'],
                   ['13 Hillside Rooms',         '#rooms'],
@@ -124,7 +124,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
                   ['Photo Gallery',             '#gallery'],
                 ].map(([label, href]) => (
                   <li key={label}>
-                    <a href={href} className="hover:text-white transition-colors">{label}</a>
+                    <a href={href} className="hover:text-[#1a1a1a] transition-colors">{label}</a>
                   </li>
                 ))}
               </ul>
@@ -140,9 +140,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
               transition={childTransition}
               className="space-y-3"
             >
-              <h4 className="font-serif text-base text-[#E2C98F] font-semibold">Proximity To Sights</h4>
-              <p className="text-[11px] text-stone-400 font-light">The central hub of all Madikeri attractions:</p>
-              <ul className="space-y-2 text-xs text-stone-300">
+              <h4 className="font-serif text-base text-[#C5A059] font-semibold">Proximity To Sights</h4>
+              <p className="text-[11px] text-stone-500 font-light">The central hub of all Madikeri attractions:</p>
+              <ul className="space-y-2 text-xs text-stone-600">
                 {[
                   ["Raja's Seat Sunset Point",         '5.0'],
                   ['Field Marshal Cariappa Memorial',  '5.0'],
@@ -150,9 +150,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
                   ['Madikeri Fort & Museum',           '5.5'],
                   ['Abbey Falls Cascade',             '10.0'],
                 ].map(([name, km]) => (
-                  <li key={name} className="flex items-center justify-between border-b border-white/5 pb-1">
+                  <li key={name} className="flex items-center justify-between border-b border-stone-200 pb-1">
                     <span>{name}</span>
-                    <span className="text-[#E2C98F] font-bold">{km} km</span>
+                    <span className="text-[#C5A059] font-bold">{km} km</span>
                   </li>
                 ))}
               </ul>
@@ -168,20 +168,20 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
               transition={childTransition}
               className="space-y-3"
             >
-              <h4 className="font-serif text-base text-[#E2C98F] font-semibold">Direct Reservations</h4>
-              <p className="text-xs text-stone-300 font-light leading-relaxed">
+              <h4 className="font-serif text-base text-[#C5A059] font-semibold">Direct Reservations</h4>
+              <p className="text-xs text-stone-600 font-light leading-relaxed">
                 Booking directly with our manager guarantees the best room assignment, instant confirmation, zero middleman fees, and complimentary campfire access.
               </p>
 
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <span className="text-[10px] text-stone-400 uppercase tracking-wider block">Reservations Desk</span>
+              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1.5">
+                <span className="text-[10px] text-stone-500 uppercase tracking-wider block">Reservations Desk</span>
                 <a
                   href={`tel:${RESORT_INFO.phone}`}
-                  className="font-serif text-lg text-white font-bold block hover:text-[#E2C98F] transition-colors"
+                  className="font-serif text-lg text-[#1a1a1a] font-bold block hover:text-[#C5A059] transition-colors"
                 >
                   {RESORT_INFO.phoneDisplay}
                 </a>
-                <span className="text-[11px] text-emerald-400 block font-medium">Open 24/7 for Inquiries</span>
+                <span className="text-[11px] text-[#C5A059] block font-medium">Open 24/7 for Inquiries</span>
               </div>
 
               <div className="pt-1">
@@ -189,7 +189,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
                   href="https://maps.google.com/?q=Madikeri+Coorg+Karnataka"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-[#E2C98F] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#C5A059] hover:underline"
                 >
                   <MapPin className="w-3.5 h-3.5" />
                   <span>Open Directions in Google Maps</span>
@@ -205,7 +205,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             whileInView={{ opacity: 1 }}
             viewport={viewport}
             transition={{ duration: prefersReducedMotion ? 0.01 : 0.6, ease: ease as number[], delay: 0.3 }}
-            className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400"
+            className="pt-8 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500"
           >
             <div>
               © {new Date().getFullYear()} Coorg Heritage Hill View Resort. All rights reserved. Madikeri, Kodagu, Karnataka.
@@ -214,7 +214,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             <div className="flex items-center gap-6">
               <motion.button
                 onClick={scrollToTop}
-                className="flex items-center gap-1 text-stone-300 hover:text-white transition-colors"
+                className="flex items-center gap-1 text-stone-600 hover:text-[#1a1a1a] transition-colors"
                 whileHover={prefersReducedMotion ? {} : { y: -2 }}
                 transition={{ duration: 0.2, ease: ease as number[] }}
               >
@@ -227,12 +227,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
       </footer>
 
       {/* Persistent mobile sticky bar */}
-      <div className="sm:hidden fixed bottom-0 left-0 w-full z-40 bg-[#0A2016]/95 backdrop-blur-lg border-t border-white/15 p-3 flex items-center gap-2 shadow-2xl">
+      <div className="sm:hidden fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-lg border-t border-stone-200 p-3 flex items-center gap-2 shadow-2xl">
         <a
           href={`tel:${RESORT_INFO.phone}`}
-          className="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
+          className="flex-1 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-100 text-[#1a1a1a] font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
         >
-          <Phone className="w-3.5 h-3.5 text-[#E2C98F]" />
+          <Phone className="w-3.5 h-3.5 text-[#C5A059]" />
           <span>Call Desk</span>
         </a>
 
@@ -240,7 +240,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
           href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hi%20Coorg%20Heritage%20Hill%20View%20Resort,%20I%20would%20like%20to%20inquire%20about%20booking.`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-semibold text-xs flex items-center justify-center gap-1.5"
+          className="flex-1 py-2.5 rounded-xl bg-[#C5A059] text-[#1a1a1a] font-semibold text-xs flex items-center justify-center gap-1.5"
         >
           <MessageCircle className="w-3.5 h-3.5" />
           <span>WhatsApp</span>
@@ -248,7 +248,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
 
         <button
           onClick={onOpenBooking}
-          className="flex-1 py-2.5 rounded-xl bg-[#E2C98F] text-[#0A2016] font-bold text-xs flex items-center justify-center gap-1 shadow-md"
+          className="flex-1 py-2.5 rounded-xl bg-[#E2C98F] text-[#1a1a1a] font-bold text-xs flex items-center justify-center gap-1 shadow-md"
         >
           <CalendarCheck className="w-3.5 h-3.5" />
           <span>Book Stay</span>

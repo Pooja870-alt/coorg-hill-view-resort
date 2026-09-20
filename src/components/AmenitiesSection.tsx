@@ -22,12 +22,12 @@ export const AmenitiesSection: React.FC = () => {
 
   const getAmenityIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Wind':           return <Wind           className="w-6 h-6 text-[#1E4D38]" />;
+      case 'Wind':           return <Wind           className="w-6 h-6 text-[#555555]" />;
       case 'UtensilsCrossed':return <UtensilsCrossed className="w-6 h-6 text-amber-700" />;
       case 'Bell':           return <Bell           className="w-6 h-6 text-[#C5A059]" />;
       case 'Flame':          return <Flame          className="w-6 h-6 text-amber-600" />;
       case 'Wifi':           return <Wifi           className="w-6 h-6 text-blue-600" />;
-      case 'Car':            return <Car            className="w-6 h-6 text-emerald-700" />;
+      case 'Car':            return <Car            className="w-6 h-6 text-[#C5A059]" />;
       case 'Zap':            return <Zap            className="w-6 h-6 text-amber-500" />;
       default:               return <Sparkles       className="w-6 h-6 text-[#C5A059]" />;
     }
@@ -36,7 +36,7 @@ export const AmenitiesSection: React.FC = () => {
   const childTransition = { duration: prefersReducedMotion ? 0.01 : 0.7, ease: ease as number[] };
 
   return (
-    <section id="amenities" className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1E2522]">
+    <section id="amenities" className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
         {/* ── Section heading ─────────────────────────────────────────── */}
@@ -47,7 +47,7 @@ export const AmenitiesSection: React.FC = () => {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={viewport}
               transition={childTransition}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-widest"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 text-stone-700 text-xs font-bold uppercase tracking-widest"
             >
               <UtensilsCrossed className="w-3.5 h-3.5 text-[#C5A059]" />
               <span>Essential Resort Comforts</span>
@@ -60,7 +60,7 @@ export const AmenitiesSection: React.FC = () => {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={viewport}
               transition={{ ...childTransition, delay: 0.1 }}
-              className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#0A2016] tracking-tight leading-tight"
+              className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#1a1a1a] tracking-tight leading-tight"
             >
               AC, Non-AC, Authentic Dining &amp; Room Services
             </motion.h2>
@@ -105,7 +105,7 @@ export const AmenitiesSection: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white">
-              <span className="text-[11px] font-bold text-[#E2C98F] uppercase tracking-widest block">
+              <span className="text-[11px] font-bold text-[#C5A059] uppercase tracking-widest block">
                 Taste of Kodagu
               </span>
               <h3 className="font-serif text-2xl text-white font-medium">
@@ -138,7 +138,7 @@ export const AmenitiesSection: React.FC = () => {
               <motion.h3
                 variants={prefersReducedMotion ? {} : { hidden: { y: '100%', opacity: 0 }, visible: { y: 0, opacity: 1 } }}
                 transition={childTransition}
-                className="font-serif text-2xl sm:text-3xl font-medium text-[#0A2016] leading-snug"
+                className="font-serif text-2xl sm:text-3xl font-medium text-[#1a1a1a] leading-snug"
               >
                 Authentic Kodava Specialties, Multi-Cuisine &amp; Balcony Service
               </motion.h3>
@@ -164,7 +164,7 @@ export const AmenitiesSection: React.FC = () => {
                 { title: 'Bonfire Barbecue Starters',desc: 'Sizzling barbecue skewers and hot soup beside the crackling evening fire camp.' },
               ].map(({ title, desc }) => (
                 <div key={title} className="p-3.5 rounded-xl bg-stone-50 border border-stone-100">
-                  <span className="font-bold text-xs text-[#0A2016] block mb-1">{title}</span>
+                  <span className="font-bold text-xs text-[#1a1a1a] block mb-1">{title}</span>
                   <p className="text-xs text-stone-500">{desc}</p>
                 </div>
               ))}
@@ -179,12 +179,12 @@ export const AmenitiesSection: React.FC = () => {
                 href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hi,%20could%20you%20please%20share%20the%20current%20dining%20menu%20and%20food%20arrangements%20at%20Coorg%20Heritage%20Hill%20View%20Resort?`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A2016] text-white hover:bg-[#133E2B] text-xs font-semibold uppercase tracking-wider shadow transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#1a1a1a] hover:bg-stone-100 text-xs font-semibold uppercase tracking-wider shadow transition-colors"
                 whileHover={prefersReducedMotion ? {} : { scale: 1.04 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
                 transition={{ duration: 0.18, ease: ease as number[] }}
               >
-                <MessageCircle className="w-4 h-4 text-[#E2C98F]" />
+                <MessageCircle className="w-4 h-4 text-[#C5A059]" />
                 <span>Inquire About Food Menu &amp; Meals</span>
               </motion.a>
             </motion.div>
@@ -222,11 +222,11 @@ export const AmenitiesSection: React.FC = () => {
                 >
                   {getAmenityIcon(amenity.iconName)}
                 </motion.div>
-                <h4 className="font-serif text-lg text-[#0A2016] font-semibold mb-2">{amenity.title}</h4>
+                <h4 className="font-serif text-lg text-[#1a1a1a] font-semibold mb-2">{amenity.title}</h4>
                 <p className="text-xs text-stone-600 leading-relaxed">{amenity.description}</p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-stone-100 flex items-center gap-1 text-[11px] font-bold text-emerald-700">
+              <div className="mt-4 pt-3 border-t border-stone-100 flex items-center gap-1 text-[11px] font-bold text-[#C5A059]">
                 <Check className="w-3.5 h-3.5" />
                 <span>Standard Feature</span>
               </div>

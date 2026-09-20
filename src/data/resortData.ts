@@ -46,9 +46,9 @@ export const ROOMS_DATA: Room[] = [
     pricePerNight: 3900,
     description: 'Awake to the golden dawn breaking over misty pine treetops. Equipped with cooling AC, comfortable handcrafted wooden furnishings, and a peaceful personal verandah.',
     features: ['Climate AC', 'Valley Verandah', '24/7 Hot Water', 'Daily Housekeeping', 'Intercom Room Service', 'Complimentary Filter Coffee'],
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD87QK_0ehj64I83UFECOnv45m9bmXfXHOkctbBrXuDu4m5gV7tQXoa1mqxxgIiVQPMqQ_v4LYRsIccDDOj41qW1OMhr3R1tLaXpWnMHhkGJnOuXHImgCZaTtPYVifvzBteY7HQFwN_eRE1oTJu5S7PUclCuYTScPo6zVa-CJjA4mC56vzP11klTjGc_zC4e7tgXCn2yJzOpqaB1bU7eW2tLkbSbmD5-nuydi1pwTHQyqTFV_-3uFIRiVaNB6s08Am9y4',
+    imageUrl: '/images/IMG-20260920-WA0008.jpg',
     additionalImages: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCv8K_DErBrWI9ZkglI9y1FG2RAYfi4-c-VjMDgzvwVY36VwvEBv_lnUlvCOwbgPJ-A7TiyuZikkqcFYv-vznpik9FK4pkyxbekgpAnlRZTciNgcYxLC8Q3zdatNkEYAzQ5jKzSRpsFFY1y0pN-FLgSVW6sLHZYNyrvaVUSGZaGWIV_HbJHewLmpErswfaQQpomuuzjYn-e6yboJoS_qkMr8RRlZIc4HJ1ffKgmbow696yPWiaP_oCeVA'
+      '/images/IMG-20260920-WA0004.jpg'
     ]
   },
   {

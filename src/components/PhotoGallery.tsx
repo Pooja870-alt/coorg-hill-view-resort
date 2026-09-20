@@ -47,7 +47,7 @@ export const PhotoGallery: React.FC = () => {
   const childTransition = { duration: prefersReducedMotion ? 0.01 : 0.7, ease: ease as number[] };
 
   return (
-    <section id="gallery" className="w-full py-20 lg:py-28 bg-[#0A2016] text-[#FAF8F5] relative">
+    <section id="gallery" className="w-full py-16 lg:py-24 bg-[#FAF8F5] text-[#1a1a1a] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
         {/* ── Header ──────────────────────────────────────────────────── */}
@@ -59,7 +59,7 @@ export const PhotoGallery: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={viewport}
                 transition={childTransition}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-[#E2C98F] text-xs font-bold uppercase tracking-widest"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 text-[#1a1a1a] text-xs font-bold uppercase tracking-widest"
               >
                 <ImageIcon className="w-3.5 h-3.5" />
                 <span>Resort Visuals</span>
@@ -72,7 +72,7 @@ export const PhotoGallery: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={viewport}
                 transition={{ ...childTransition, delay: 0.1 }}
-                className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-white tracking-tight leading-tight"
+                className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#1a1a1a] tracking-tight leading-tight"
               >
                 Glimpses of Your Hilltop Retreat
               </motion.h2>
@@ -83,7 +83,7 @@ export const PhotoGallery: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={viewport}
               transition={{ ...childTransition, delay: 0.2 }}
-              className="text-sm sm:text-base text-stone-300 mt-2 font-light"
+              className="text-sm sm:text-base text-stone-500 mt-2 font-light"
             >
               Misty horizons, crackling bonfires, and comfortable handcrafted spaces in Madikeri.
             </motion.p>
@@ -103,8 +103,8 @@ export const PhotoGallery: React.FC = () => {
                 onClick={() => setActiveCategory(tab.id)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 ${
                   activeCategory === tab.id
-                    ? 'bg-[#E2C98F] text-[#0A2016] shadow-md'
-                    : 'bg-white/10 text-stone-300 hover:bg-white/20'
+                    ? 'bg-stone-900 text-white shadow-md'
+                    : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
                 }`}
                 whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
@@ -119,7 +119,7 @@ export const PhotoGallery: React.FC = () => {
         {/* ── Gallery grid — re-staggers when category changes ─────────── */}
         <motion.div
           key={activeCategory}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4"
           initial="hidden"
           animate="visible"
           variants={{
@@ -137,7 +137,7 @@ export const PhotoGallery: React.FC = () => {
               }
               transition={{ duration: prefersReducedMotion ? 0.01 : 0.55, ease: easeSmooth as number[] }}
               onClick={() => openLightbox(idx)}
-              className="group relative h-72 rounded-2xl overflow-hidden cursor-pointer bg-stone-900 shadow-lg border border-white/10 hover:border-[#E2C98F]/50 transition-[border-color] duration-300"
+              className="group relative h-56 sm:h-64 rounded-2xl overflow-hidden cursor-pointer bg-stone-200 shadow-sm border border-stone-200 hover:border-[#C5A059]/50 transition-[border-color,box-shadow] duration-300 hover:shadow-lg"
               style={{ willChange: 'transform' }}
             >
               <motion.img
@@ -153,7 +153,7 @@ export const PhotoGallery: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
 
               <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className="text-[10px] uppercase font-bold text-[#E2C98F] tracking-widest block mb-1">
+                <span className="text-[10px] uppercase font-bold text-[#C5A059] tracking-widest block mb-1">
                   {item.category}
                 </span>
                 <h4 className="font-serif text-base font-medium leading-snug">{item.title}</h4>
@@ -214,7 +214,7 @@ export const PhotoGallery: React.FC = () => {
                     key={lightboxIndex}
                     src={filteredItems[lightboxIndex].imageUrl}
                     alt={filteredItems[lightboxIndex].title}
-                    className="max-h-[75vh] max-w-full object-contain rounded-2xl shadow-2xl border border-white/20"
+                    className="max-h-[75vh] max-w-full object-contain rounded-2xl shadow-2xl border border-stone-300"
                     initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -30 }}
@@ -223,10 +223,10 @@ export const PhotoGallery: React.FC = () => {
                 </AnimatePresence>
 
                 <div className="mt-4 text-center text-white max-w-xl">
-                  <h3 className="font-serif text-xl font-medium text-[#E2C98F]">
+                  <h3 className="font-serif text-xl font-medium text-[#C5A059]">
                     {filteredItems[lightboxIndex].title}
                   </h3>
-                  <p className="text-xs text-stone-300 mt-1 font-light">
+                  <p className="text-xs text-stone-600 mt-1 font-light">
                     {filteredItems[lightboxIndex].description}
                   </p>
                   <div className="text-[11px] text-stone-500 mt-2">
@@ -240,7 +240,7 @@ export const PhotoGallery: React.FC = () => {
             <motion.button
               key="lb-close"
               onClick={closeLightbox}
-              className="fixed top-5 right-5 z-[60] w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              className="fixed top-5 right-5 z-[60] w-10 h-10 rounded-full bg-stone-100 hover:bg-stone-100 text-[#1a1a1a] flex items-center justify-center transition-colors"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -254,7 +254,7 @@ export const PhotoGallery: React.FC = () => {
             <motion.button
               key="lb-prev"
               onClick={prevImage}
-              className="fixed left-4 sm:left-8 top-1/2 -translate-y-1/2 z-[60] w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              className="fixed left-4 sm:left-8 top-1/2 -translate-y-1/2 z-[60] w-12 h-12 rounded-full bg-stone-100 hover:bg-stone-100 text-[#1a1a1a] flex items-center justify-center transition-colors"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
@@ -268,7 +268,7 @@ export const PhotoGallery: React.FC = () => {
             <motion.button
               key="lb-next"
               onClick={nextImage}
-              className="fixed right-4 sm:right-8 top-1/2 -translate-y-1/2 z-[60] w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              className="fixed right-4 sm:right-8 top-1/2 -translate-y-1/2 z-[60] w-12 h-12 rounded-full bg-stone-100 hover:bg-stone-100 text-[#1a1a1a] flex items-center justify-center transition-colors"
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}

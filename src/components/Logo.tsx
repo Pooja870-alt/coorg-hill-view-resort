@@ -23,13 +23,13 @@ export const Logo: React.FC<LogoProps> = ({ className = '', variant = 'dark', co
         <div
           className={`font-serif tracking-[0.08em] font-bold leading-tight uppercase ${
             compact ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'
-          } ${isLight ? 'text-white' : 'text-[#0A2016]'}`}
+          } ${isLight ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]'}`}
         >
           Coorg Heritage
         </div>
         <div
           className={`font-sans tracking-[0.22em] font-semibold uppercase leading-none mt-0.5 text-[10px] sm:text-[11px] ${
-            isLight ? 'text-[#E2C98F]' : 'text-[#B8863A]'
+            isLight ? 'text-[#C5A059]' : 'text-[#B8863A]'
           }`}
         >
           Hill View Resort

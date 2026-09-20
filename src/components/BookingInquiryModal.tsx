@@ -107,25 +107,25 @@ export const BookingInquiryModal: React.FC<BookingInquiryModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-[#FAF8F5] text-[#1E2522] rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-stone-300">
+      <div className="bg-[#FAF8F5] text-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-stone-300">
         {/* Header */}
-        <div className="bg-[#0A2016] text-[#FAF8F5] p-6 sm:p-7 relative rounded-t-3xl">
+        <div className="bg-white text-[#1a1a1a] p-6 sm:p-7 relative rounded-t-3xl">
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            className="absolute top-5 right-5 w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-100 text-[#1a1a1a] flex items-center justify-center transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <div className="flex items-center gap-2 text-[#E2C98F] text-xs font-bold uppercase tracking-widest mb-1.5">
+          <div className="flex items-center gap-2 text-[#C5A059] text-xs font-bold uppercase tracking-widest mb-1.5">
             <Sparkles className="w-4 h-4" />
             <span>Direct Reservation Desk</span>
           </div>
 
-          <h3 className="font-serif text-2xl sm:text-3xl text-white font-medium">
+          <h3 className="font-serif text-2xl sm:text-3xl text-[#1a1a1a] font-medium">
             Plan Your Stay in Madikeri
           </h3>
-          <p className="text-xs text-stone-300 mt-1 font-light">
+          <p className="text-xs text-stone-600 mt-1 font-light">
             Guaranteed best direct rate • Free campfire &amp; rain dance • Central hub to all tourist spots
           </p>
         </div>
@@ -273,7 +273,7 @@ export const BookingInquiryModal: React.FC<BookingInquiryModalProps> = ({
 
             <div>
               <span className="text-stone-500 block">Approx. Starting Tariff</span>
-              <span className="font-serif text-lg font-bold text-[#0A2016]">
+              <span className="font-serif text-lg font-bold text-[#1a1a1a]">
                 ₹{estimatedTotal.toLocaleString()}*
               </span>
             </div>
@@ -287,7 +287,7 @@ export const BookingInquiryModal: React.FC<BookingInquiryModalProps> = ({
           <div className="space-y-3 pt-2">
             <button
               type="submit"
-              className="w-full py-3.5 px-6 rounded-2xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg transition-transform hover:scale-[1.01] active:scale-[0.99]"
+              className="w-full py-3.5 px-6 rounded-2xl bg-white hover:bg-stone-100 text-[#1a1a1a] font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg transition-transform hover:scale-[1.01] active:scale-[0.99]"
             >
               <MessageCircle className="w-5 h-5" />
               <span>Confirm on WhatsApp (Instant Response)</span>
@@ -296,9 +296,9 @@ export const BookingInquiryModal: React.FC<BookingInquiryModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <a
                 href={`tel:${RESORT_INFO.phone}`}
-                className="py-3 px-4 rounded-2xl bg-[#0A2016] hover:bg-[#133E2B] text-white font-semibold text-xs tracking-wider uppercase flex items-center justify-center gap-2 transition-colors"
+                className="py-3 px-4 rounded-2xl bg-white hover:bg-stone-100 text-[#1a1a1a] font-semibold text-xs tracking-wider uppercase flex items-center justify-center gap-2 transition-colors"
               >
-                <Phone className="w-4 h-4 text-[#E2C98F]" />
+                <Phone className="w-4 h-4 text-[#C5A059]" />
                 <span>Call Desk: {RESORT_INFO.phoneDisplay}</span>
               </a>
 

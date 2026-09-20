@@ -43,7 +43,7 @@ export const CentralTouristHub: React.FC = () => {
       case 'Shield':
         return <Shield className="w-5 h-5 text-blue-600" />;
       case 'Building2':
-        return <Building2 className="w-5 h-5 text-emerald-600" />;
+        return <Building2 className="w-5 h-5 text-[#C5A059]" />;
       case 'Waves':
         return <Waves className="w-5 h-5 text-cyan-600" />;
       case 'Castle':
@@ -61,7 +61,7 @@ export const CentralTouristHub: React.FC = () => {
       ref={sectionRef}
       id="tourist-hub"
       style={{ y: sectionY }}
-      className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1E2522] relative overflow-hidden"
+      className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1a1a1a] relative overflow-hidden"
     >
       {/* Scroll-linked Ambient Background Decor */}
       <motion.div
@@ -70,7 +70,7 @@ export const CentralTouristHub: React.FC = () => {
       />
       <motion.div
         style={{ y: bgGlow2Y }}
-        className="absolute bottom-0 left-0 w-96 h-96 bg-[#1E4D38]/10 rounded-full blur-3xl pointer-events-none"
+        className="absolute bottom-0 left-0 w-96 h-96 bg-[#555555]/10 rounded-full blur-3xl pointer-events-none"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
@@ -84,7 +84,7 @@ export const CentralTouristHub: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.6, ease: cubicEase, delay: 0 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-emerald-900 text-xs font-bold uppercase tracking-widest"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 border border-stone-300 text-stone-700 text-xs font-bold uppercase tracking-widest"
               >
                 <Compass className="w-4 h-4 text-[#C5A059]" />
                 <span>The Strategic Advantage</span>
@@ -98,7 +98,7 @@ export const CentralTouristHub: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.75, ease: cubicEase, delay: 0.1 }}
-                className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#0A2016] tracking-tight leading-tight"
+                className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#1a1a1a] tracking-tight leading-tight"
               >
                 The Exact Centre Point of All Coorg Tourist Places
               </motion.h2>
@@ -125,13 +125,13 @@ export const CentralTouristHub: React.FC = () => {
               whileInView={{ y: 0, opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.7, ease: cubicEase, delay: 0.3 }}
-              className="p-4 sm:p-5 rounded-2xl bg-[#0A2016] text-[#FAF8F5] shadow-xl border border-[#C5A059]/30"
+              className="p-4 sm:p-5 rounded-2xl bg-white text-[#1a1a1a] shadow-xl border border-[#C5A059]/30"
             >
-              <div className="flex items-center gap-2 text-[#E2C98F] text-xs font-bold uppercase tracking-wider mb-1">
+              <div className="flex items-center gap-2 text-[#C5A059] text-xs font-bold uppercase tracking-wider mb-1">
                 <Clock className="w-4 h-4" />
                 <span>Save 2.5+ Hours Daily</span>
               </div>
-              <p className="text-xs text-stone-300 leading-relaxed">
+              <p className="text-xs text-stone-600 leading-relaxed">
                 Zero highway fatigue. Enjoy sunset at Raja’s Seat and waterfalls by morning, then easily return for lunch and evening campfire.
               </p>
             </motion.div>
@@ -139,238 +139,151 @@ export const CentralTouristHub: React.FC = () => {
         </div>
 
         {/* Interactive Distance Visualizer & Sight Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-14">
-          {/* Left Column: Interactive Attractions List with Sequential Journey Discovery */}
-          <div className="lg:col-span-5 flex flex-col gap-3 relative">
-            {/* Subtle Scroll-linked Journey Path Line */}
-            <div className="absolute left-[27px] top-12 bottom-4 w-0.5 bg-stone-200 pointer-events-none hidden sm:block">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-14">
+          {/* Left Column: Attractions List */}
+          <div className="flex flex-col gap-3 relative">
+            {/* Journey Path Line - desktop only */}
+            <div className="absolute left-[27px] top-12 bottom-4 w-0.5 bg-stone-200 pointer-events-none hidden lg:block">
               <motion.div
                 style={{ height: journeyProgressY }}
-                className="w-full bg-gradient-to-b from-[#C5A059] to-[#0A2016] rounded-full"
+                className="w-full bg-gradient-to-b from-[#C5A059] to-stone-400 rounded-full"
               />
             </div>
 
-            <div className="overflow-hidden mb-1">
-              <motion.span
-                initial={{ y: '100%', opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: cubicEase }}
-                className="text-xs uppercase tracking-widest font-bold text-stone-500 block"
-              >
+            <div className="mb-1">
+              <span className="text-xs uppercase tracking-widest font-bold text-stone-500 block">
                 Click Any Landmark to Inspect Proximity:
-              </motion.span>
+              </span>
             </div>
 
             {TOURIST_ATTRACTIONS.map((attraction, index) => {
               const isSelected = selectedAttraction.id === attraction.id;
               return (
-                <div key={attraction.id} className="overflow-hidden rounded-2xl">
-                  <motion.button
-                    initial={{ y: '100%', opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: true, margin: '-30px' }}
-                    transition={{
-                      duration: 0.65,
-                      ease: cubicEase,
-                      delay: 0.08 * index
-                    }}
-                    onClick={() => setSelectedAttraction(attraction)}
-                    className={`w-full text-left p-4 rounded-2xl transition-all duration-300 border flex items-center justify-between group relative z-10 ${
-                      isSelected
-                        ? 'bg-[#0A2016] text-white border-[#0A2016] shadow-xl scale-[1.02]'
-                        : 'bg-white hover:bg-stone-50 text-stone-800 border-stone-200 shadow-sm'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3.5">
-                      {/* Icon with subtle scale-settle */}
-                      <motion.div
-                        initial={{ scale: 1.08 }}
-                        whileInView={{ scale: 1 }}
-                        transition={{ duration: 0.6, ease: cubicEase, delay: 0.08 * index }}
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0 ${
-                          isSelected ? 'bg-white/15 text-[#E2C98F]' : 'bg-stone-100 text-stone-700'
-                        }`}
-                      >
-                        {getCategoryIcon(attraction.iconName)}
-                      </motion.div>
-
-                      <div>
-                        {/* Masked Typography Reveal for Destination Name */}
-                        <div className="overflow-hidden">
-                          <motion.div
-                            initial={{ y: '100%' }}
-                            whileInView={{ y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, ease: cubicEase, delay: 0.08 * index + 0.04 }}
-                            className={`font-serif text-base sm:text-lg font-medium leading-snug ${
-                              isSelected ? 'text-[#E2C98F]' : 'text-[#0A2016]'
-                            }`}
-                          >
-                            {attraction.name}
-                          </motion.div>
-                        </div>
-                        <div className={`text-xs mt-0.5 line-clamp-1 ${
-                          isSelected ? 'text-stone-300' : 'text-stone-500'
-                        }`}>
-                          {attraction.highlight}
-                        </div>
+                <motion.button
+                  key={attraction.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-20px' }}
+                  transition={{ duration: 0.45, ease: cubicEase, delay: 0.06 * index }}
+                  onClick={() => setSelectedAttraction(attraction)}
+                  className={`w-full text-left p-4 rounded-2xl transition-all duration-300 border flex items-center justify-between group relative z-10 ${
+                    isSelected
+                      ? 'bg-stone-900 text-white border-stone-900 shadow-xl'
+                      : 'bg-white hover:bg-stone-50 text-stone-800 border-stone-200 shadow-sm'
+                  }`}
+                >
+                  <div className="flex items-center gap-3.5">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                      isSelected ? 'bg-white/15' : 'bg-stone-100'
+                    }`}>
+                      {getCategoryIcon(attraction.iconName)}
+                    </div>
+                    <div className="min-w-0">
+                      <div className={`font-serif text-base sm:text-lg font-medium leading-snug ${
+                        isSelected ? 'text-white' : 'text-[#1a1a1a]'
+                      }`}>
+                        {attraction.name}
+                      </div>
+                      <div className={`text-xs mt-0.5 truncate ${
+                        isSelected ? 'text-stone-300' : 'text-stone-500'
+                      }`}>
+                        {attraction.highlight}
                       </div>
                     </div>
+                  </div>
 
-                    {/* Distance Pill with natural staggered reveal */}
-                    <div className="text-right shrink-0 ml-2">
-                      <motion.span
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, ease: cubicEase, delay: 0.08 * index + 0.08 }}
-                        className={`inline-block px-2.5 py-1 rounded-full text-xs font-bold ${
-                          isSelected
-                            ? 'bg-[#E2C98F] text-[#0A2016]'
-                            : 'bg-stone-100 text-stone-800'
-                        }`}
-                      >
-                        {attraction.distanceKm} KM
-                      </motion.span>
-                      <span className={`block text-[10px] mt-0.5 ${
-                        isSelected ? 'text-stone-300' : 'text-stone-400'
-                      }`}>
-                        ~{attraction.driveTimeMins} mins
-                      </span>
-                    </div>
-                  </motion.button>
-                </div>
+                  <div className="text-right shrink-0 ml-3">
+                    <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-bold ${
+                      isSelected ? 'bg-[#C5A059] text-white' : 'bg-stone-100 text-stone-800'
+                    }`}>
+                      {attraction.distanceKm} KM
+                    </span>
+                    <span className={`block text-[10px] mt-0.5 ${
+                      isSelected ? 'text-stone-300' : 'text-stone-500'
+                    }`}>
+                      ~{attraction.driveTimeMins} mins
+                    </span>
+                  </div>
+                </motion.button>
               );
             })}
           </div>
 
-          {/* Right Column: Selected Landmark Spotlight Card with Parallax & Masked Transitions */}
-          <motion.div
-            style={{ y: spotlightParallaxY }}
-            className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-stone-200/90 flex flex-col justify-between relative overflow-hidden min-h-[420px]"
-          >
-            <div className="absolute top-0 right-0 bg-[#0A2016] text-[#E2C98F] px-4 py-1.5 rounded-bl-2xl text-xs font-bold tracking-widest uppercase z-10">
-              {selectedAttraction.distanceKm === 5.0 ? '⚡ Direct 5 KM Radius' : `${selectedAttraction.distanceKm} KM Distance`}
+          {/* Right Column: Spotlight Card — no parallax, no overflow */}
+          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-stone-200 flex flex-col justify-between sticky top-28">
+            <div className="inline-flex items-center self-end mb-4 bg-stone-900 text-[#C5A059] px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
+              {selectedAttraction.distanceKm === 5.0 ? '⚡ 5 KM Radius' : `${selectedAttraction.distanceKm} KM Away`}
             </div>
 
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedAttraction.id}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4, ease: cubicEase }}
-                className="flex-grow flex flex-col justify-between"
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3, ease: cubicEase }}
               >
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    {/* Image / Icon container with 1.08 -> 1 scale settle */}
-                    <motion.div
-                      initial={{ scale: 1.08 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.6, ease: cubicEase }}
-                      className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 overflow-hidden"
-                    >
-                      {getCategoryIcon(selectedAttraction.iconName)}
-                    </motion.div>
-
-                    <div>
-                      <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block">
-                        Scenic Mountain Route
-                      </span>
-
-                      {/* Masked Typography Reveal for Spotlight Heading */}
-                      <div className="overflow-hidden">
-                        <motion.h3
-                          initial={{ y: '100%' }}
-                          animate={{ y: 0 }}
-                          transition={{ duration: 0.5, ease: cubicEase, delay: 0.05 }}
-                          className="font-serif text-2xl sm:text-3xl text-[#0A2016] font-medium"
-                        >
-                          {selectedAttraction.name}
-                        </motion.h3>
-                      </div>
-                    </div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0">
+                    {getCategoryIcon(selectedAttraction.iconName)}
                   </div>
-
-                  {/* Masked Paragraph Reveal */}
-                  <div className="overflow-hidden mb-6">
-                    <motion.p
-                      initial={{ y: '30px', opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.5, ease: cubicEase, delay: 0.1 }}
-                      className="font-sans text-stone-700 text-sm sm:text-base leading-relaxed"
-                    >
-                      {selectedAttraction.detailedDescription}
-                    </motion.p>
-                  </div>
-
-                  {/* Quick Details Grid with Staggered Scale-Settle */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-xs text-stone-700 mb-6">
-                    <motion.div
-                      initial={{ scale: 1.05, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.4, ease: cubicEase, delay: 0.12 }}
-                    >
-                      <span className="block font-bold text-stone-400 uppercase text-[10px]">Distance</span>
-                      <span className="font-semibold text-[#0A2016] text-sm">{selectedAttraction.distanceKm} km from Resort</span>
-                    </motion.div>
-                    <motion.div
-                      initial={{ scale: 1.05, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.4, ease: cubicEase, delay: 0.16 }}
-                    >
-                      <span className="block font-bold text-stone-400 uppercase text-[10px]">Driving Duration</span>
-                      <span className="font-semibold text-emerald-800 text-sm">~{selectedAttraction.driveTimeMins} minutes</span>
-                    </motion.div>
-                    <motion.div
-                      initial={{ scale: 1.05, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.4, ease: cubicEase, delay: 0.2 }}
-                    >
-                      <span className="block font-bold text-stone-400 uppercase text-[10px]">Recommended Visit Time</span>
-                      <span className="font-semibold text-amber-900 text-sm">{selectedAttraction.bestTime}</span>
-                    </motion.div>
+                  <div>
+                    <span className="text-xs font-bold text-stone-400 uppercase tracking-wider block">
+                      Scenic Mountain Route
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-3xl text-[#1a1a1a] font-medium leading-tight">
+                      {selectedAttraction.name}
+                    </h3>
                   </div>
                 </div>
 
-                {/* CTAs and Google Maps */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: cubicEase, delay: 0.22 }}
-                  className="pt-4 border-t border-stone-100 flex flex-wrap items-center justify-between gap-4"
-                >
-                  <div className="flex items-center gap-2 text-xs text-stone-500">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>Zero mountain hairpin delay from resort</span>
-                  </div>
+                <p className="font-sans text-stone-600 text-sm sm:text-base leading-relaxed mb-5">
+                  {selectedAttraction.detailedDescription}
+                </p>
 
-                  <div className="flex items-center gap-3">
-                    <a
-                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(selectedAttraction.googleMapsQuery)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A2016] text-[#FAF8F5] hover:bg-[#133E2B] text-xs font-semibold uppercase tracking-wider shadow transition-all hover:scale-105"
-                    >
-                      <Navigation className="w-3.5 h-3.5 text-[#E2C98F]" />
-                      <span>Get Directions</span>
-                      <ExternalLink className="w-3.5 h-3.5 ml-0.5 opacity-70" />
-                    </a>
-
-                    <a
-                      href={`tel:${RESORT_INFO.phone}`}
-                      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-colors"
-                    >
-                      <Car className="w-3.5 h-3.5 text-[#C5A059]" />
-                      <span>Ask Front Desk for Cab/Jeep</span>
-                    </a>
+                {/* Details grid */}
+                <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs mb-5">
+                  <div>
+                    <span className="block font-bold text-stone-400 uppercase text-[10px] mb-1">Distance</span>
+                    <span className="font-semibold text-[#1a1a1a] text-sm">{selectedAttraction.distanceKm} km</span>
                   </div>
-                </motion.div>
+                  <div>
+                    <span className="block font-bold text-stone-400 uppercase text-[10px] mb-1">Drive Time</span>
+                    <span className="font-semibold text-[#C5A059] text-sm">~{selectedAttraction.driveTimeMins} mins</span>
+                  </div>
+                  <div>
+                    <span className="block font-bold text-stone-400 uppercase text-[10px] mb-1">Best Time</span>
+                    <span className="font-semibold text-stone-700 text-sm">{selectedAttraction.bestTime}</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-stone-100">
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(selectedAttraction.googleMapsQuery)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-stone-900 text-white hover:bg-stone-700 text-xs font-semibold uppercase tracking-wider shadow transition-all"
+                  >
+                    <Navigation className="w-3.5 h-3.5" />
+                    <span>Get Directions</span>
+                    <ExternalLink className="w-3 h-3 opacity-70" />
+                  </a>
+                  <a
+                    href={`tel:${RESORT_INFO.phone}`}
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-colors"
+                  >
+                    <Car className="w-3.5 h-3.5 text-[#C5A059]" />
+                    <span>Ask for Cab/Jeep</span>
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs text-stone-400 mt-3">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A059]" />
+                  <span>Zero mountain hairpin delay from resort</span>
+                </div>
               </motion.div>
             </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
 
         {/* Travel Fatigue Comparison Banner with Masked Entrance */}
@@ -379,9 +292,9 @@ export const CentralTouristHub: React.FC = () => {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.8, ease: cubicEase }}
-          className="rounded-3xl bg-gradient-to-r from-[#0A2016] to-[#133E2B] text-white p-6 sm:p-8 shadow-2xl border border-[#C5A059]/20"
+          className="rounded-3xl bg-white text-[#1a1a1a] p-6 sm:p-8 shadow-xl border border-[#C5A059]/20"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
             <div className="md:col-span-2">
               <div className="overflow-hidden mb-3">
                 <motion.div
@@ -389,7 +302,7 @@ export const CentralTouristHub: React.FC = () => {
                   whileInView={{ y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: cubicEase }}
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#E2C98F] text-xs font-semibold uppercase tracking-widest"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 text-[#C5A059] text-xs font-semibold uppercase tracking-widest"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Smart Itinerary Choice</span>
@@ -408,7 +321,7 @@ export const CentralTouristHub: React.FC = () => {
                 </motion.h3>
               </div>
 
-              <p className="text-sm text-stone-300 leading-relaxed font-light">
+              <p className="text-sm text-stone-600 leading-relaxed font-light">
                 Coorg's mountain terrain features winding roads where 20 km takes nearly an hour. By choosing our central Madikeri location, you stay within 5–10 km of Raja's Seat, Abbey Falls, and the historic temples, allowing you to return to your room whenever you want to freshen up or rest.
               </p>
             </div>
@@ -418,11 +331,11 @@ export const CentralTouristHub: React.FC = () => {
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: cubicEase, delay: 0.2 }}
-              className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 text-center"
+              className="bg-stone-100 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-stone-200 text-center"
             >
-              <div className="text-3xl sm:text-4xl font-serif text-[#E2C98F] font-bold">5 KM</div>
-              <div className="text-xs uppercase tracking-widest text-white/90 font-semibold mt-1">Average Distance to Sights</div>
-              <div className="text-xs text-stone-300 mt-2">vs. 25–40 km from remote plantation stays</div>
+              <div className="text-3xl sm:text-4xl font-serif text-[#C5A059] font-bold">5 KM</div>
+              <div className="text-xs uppercase tracking-widest text-stone-700 font-semibold mt-1">Average Distance to Sights</div>
+              <div className="text-xs text-stone-600 mt-2">vs. 25–40 km from remote plantation stays</div>
             </motion.div>
           </div>
         </motion.div>

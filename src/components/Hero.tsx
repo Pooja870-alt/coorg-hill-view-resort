@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  motion,
-  useReducedMotion,
-  AnimatePresence,
-} from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import {
   Calendar,
   Users,
@@ -13,12 +9,12 @@ import {
   Droplets,
   Mountain,
   Sparkles,
-  MapPin,
-  Clock,
   Compass,
+  MessageCircle,
+  CalendarCheck,
 } from 'lucide-react';
 import { RESORT_INFO } from '../data/resortData';
-import { ease, easeSmooth, fadeUp } from '../lib/motion';
+import { ease, easeSmooth } from '../lib/motion';
 
 interface HeroProps {
   onOpenBookingWithDetails?: (details: {
@@ -28,64 +24,6 @@ interface HeroProps {
     guests: string;
   }) => void;
 }
-
-// ---------------------------------------------------------------------------
-// Opening intro overlay — short cinematic "curtain" before hero is revealed
-// ---------------------------------------------------------------------------
-const HeroIntro: React.FC<{ onDone: () => void }> = ({ onDone }) => {
-  useEffect(() => {
-    const t = setTimeout(onDone, 2400);
-    return () => clearTimeout(t);
-  }, [onDone]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-[#0A2016] pointer-events-none"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.9, ease: easeSmooth as number[], delay: 0.1 }}
-    >
-      {/* Logo — scale-in first */}
-      <motion.img
-        src="/logo.png"
-        alt="Coorg Heritage Hill View Resort"
-        className="w-24 sm:w-28 object-contain relative z-10"
-        initial={{ opacity: 0, scale: 0.85 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, ease: easeSmooth as number[], delay: 0.15 }}
-      />
-
-      {/* Horizontal gold rule that expands outward */}
-      <motion.div
-        className="h-px bg-[#E2C98F]/50 mt-6 relative z-10"
-        initial={{ width: 0 }}
-        animate={{ width: '14rem' }}
-        transition={{ duration: 0.8, ease: ease as number[], delay: 0.6 }}
-      />
-
-      {/* Resort name fades in */}
-      <motion.span
-        className="font-serif text-sm sm:text-base tracking-[0.3em] uppercase text-[#E2C98F] mt-4 relative z-10"
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease: ease as number[], delay: 0.95 }}
-      >
-        Coorg Heritage Hill View Resort
-      </motion.span>
-
-      {/* Altitude tag */}
-      <motion.span
-        className="font-sans text-[11px] tracking-widest uppercase text-stone-400 mt-2 relative z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.55, ease: ease as number[], delay: 1.35 }}
-      >
-        Madikeri · 1,150 m
-      </motion.span>
-    </motion.div>
-  );
-};
 
 // ---------------------------------------------------------------------------
 // Slideshow images — served from /public/images/
@@ -98,20 +36,18 @@ const HERO_IMAGES = [
   '/images/IMG-20260920-WA0016.jpg',
 ];
 
-const SLIDE_INTERVAL_MS = 4500;
+const SLIDE_INTERVAL_MS = 4000;
 
-// Flip-style crossfade between hero images
+// ---------------------------------------------------------------------------
+// Standalone slideshow — crossfade + ken-burns, for the right panel
+// ---------------------------------------------------------------------------
 const HeroSlideshow: React.FC = () => {
   const [current, setCurrent] = useState(0);
-  const [prev, setPrev] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      setCurrent((c) => {
-        setPrev(c);
-        return (c + 1) % HERO_IMAGES.length;
-      });
+      setCurrent((c) => (c + 1) % HERO_IMAGES.length);
     }, SLIDE_INTERVAL_MS);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -119,59 +55,45 @@ const HeroSlideshow: React.FC = () => {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden [perspective:1200px]">
-      {/* Previous slide — flip out */}
-      {prev !== null && (
+    <div className="relative w-full h-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl">
+      {HERO_IMAGES.map((src, i) => (
         <motion.div
-          key={`prev-${prev}`}
+          key={src}
           className="absolute inset-0"
-          initial={{ rotateY: 0, opacity: 1 }}
-          animate={{ rotateY: -90, opacity: 0 }}
-          transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1] }}
-          style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: i === current ? 1 : 0 }}
+          transition={{ duration: 1.0, ease: 'easeInOut' }}
         >
           <img
-            src={HERO_IMAGES[prev]}
-            alt=""
-            className="w-full h-full object-cover object-center brightness-[0.82]"
+            src={src}
+            alt={`Coorg Heritage Hill View Resort ${i + 1}`}
+            className="w-full h-full object-cover animate-kenburns"
           />
         </motion.div>
-      )}
+      ))}
 
-      {/* Current slide — flip in */}
-      <motion.div
-        key={`curr-${current}`}
-        className="absolute inset-0"
-        initial={{ rotateY: 90, opacity: 0 }}
-        animate={{ rotateY: 0, opacity: 1 }}
-        transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1] }}
-        style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
-      >
-        <img
-          src={HERO_IMAGES[current]}
-          alt="Coorg Heritage Hill View Resort"
-          className="w-full h-full object-cover object-center brightness-[0.82] animate-kenburns"
-        />
-      </motion.div>
+      {/* Dark gradient at bottom */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none rounded-2xl lg:rounded-3xl" />
 
-      {/* Gradient overlays — same as before */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0A2016] via-[#0A2016]/40 to-[#0A2016]/60 mix-blend-multiply pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0A2016]/85 via-transparent to-[#0A2016]/50 pointer-events-none" />
-
-      {/* Slide indicator dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+      {/* Dots */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
         {HERO_IMAGES.map((_, i) => (
           <button
             key={i}
-            onClick={() => { setPrev(current); setCurrent(i); }}
-            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+            onClick={() => setCurrent(i)}
+            className={`rounded-full transition-all duration-300 ${
               i === current
-                ? 'bg-[#E2C98F] w-4'
-                : 'bg-white/40 hover:bg-white/70'
+                ? 'bg-white w-5 h-2'
+                : 'bg-white/50 w-2 h-2 hover:bg-white/80'
             }`}
-            aria-label={`Go to slide ${i + 1}`}
+            aria-label={`Go to photo ${i + 1}`}
           />
         ))}
+      </div>
+
+      {/* Photo counter */}
+      <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-sm text-white text-[11px] font-semibold">
+        {current + 1} / {HERO_IMAGES.length}
       </div>
     </div>
   );
@@ -183,20 +105,13 @@ const HeroSlideshow: React.FC = () => {
 export const Hero: React.FC<HeroProps> = ({ onOpenBookingWithDetails }) => {
   const prefersReducedMotion = useReducedMotion();
 
-  // Show intro only on first mount, skip for reduced-motion users
-  const [introComplete, setIntroComplete] = useState(
-    prefersReducedMotion ?? false,
-  );
-
-  const today = new Date().toISOString().split('T')[0];
+  const today    = new Date().toISOString().split('T')[0];
   const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
 
-  const [checkIn, setCheckIn] = useState(today);
-  const [checkOut, setCheckOut] = useState(tomorrow);
-  const [roomCategory, setRoomCategory] = useState(
-    'Superior Hill View Suite (AC)',
-  );
-  const [guests, setGuests] = useState('2 Adults');
+  const [checkIn,       setCheckIn]       = useState(today);
+  const [checkOut,      setCheckOut]      = useState(tomorrow);
+  const [roomCategory,  setRoomCategory]  = useState('Superior Hill View Suite (AC)');
+  const [guests,        setGuests]        = useState('2 Adults');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -206,374 +121,223 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingWithDetails }) => {
       const msg = encodeURIComponent(
         `Hello Coorg Heritage Hill View Resort! I would like to check availability:\n• Check-in: ${checkIn}\n• Check-out: ${checkOut}\n• Suite: ${roomCategory}\n• Guests: ${guests}`,
       );
-      window.open(
-        `https://wa.me/${RESORT_INFO.whatsappNumber}?text=${msg}`,
-        '_blank',
-      );
+      window.open(`https://wa.me/${RESORT_INFO.whatsappNumber}?text=${msg}`, '_blank');
     }
-  };
-
-  // Timing offsets — after intro exits the hero sequence begins
-  // Each value is an absolute delay from when introComplete becomes true
-  const t = {
-    bg: 0,
-    badge1: 0.1,
-    badge2: 0.25,
-    badge3: 0.4,
-    h1Line1: 0.35,
-    h1Line2: 0.52,
-    body: 0.65,
-    pillars: 0.78,
-    statusBar: 0.88,
-    bookingBar: 1.0,
   };
 
   const dur = prefersReducedMotion ? 0.01 : undefined;
 
+  const pillars = [
+    { icon: <Mountain  className="w-4 h-4 text-[#C5A059]" />, label: 'Panoramic Hill Views' },
+    { icon: <Flame     className="w-4 h-4 text-[#C5A059]" />, label: 'Nightly Fire Camp' },
+    { icon: <Droplets  className="w-4 h-4 text-[#C5A059]" />, label: 'Mountain Stream' },
+    { icon: <Compass   className="w-4 h-4 text-[#C5A059]" />, label: "5km to Raja's Seat" },
+  ];
+
   return (
-    <>
-      {/* Cinematic intro overlay */}
-      <AnimatePresence>
-        {!introComplete && (
-          <HeroIntro onDone={() => setIntroComplete(true)} />
-        )}
-      </AnimatePresence>
+    <section
+      id="overview"
+      className="w-full bg-white text-[#1a1a1a] pt-20 sm:pt-24 pb-0 overflow-hidden"
+    >
+      {/* ── Top area: two-column split ───────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-8 sm:pt-12 pb-10 sm:pb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-      <section
-        id="overview"
-        className="relative w-full min-h-[96vh] flex flex-col justify-between overflow-hidden bg-[#0A2016] text-[#FAF8F5] pt-28 sm:pt-32"
-      >
-        {/* ----------------------------------------------------------------
-            Background — slideshow with flip transition
-        ---------------------------------------------------------------- */}
-        <motion.div
-          className="absolute inset-0 z-0 pointer-events-none"
-          initial={prefersReducedMotion ? {} : { opacity: 0 }}
-          animate={introComplete ? { opacity: 1 } : {}}
-          transition={{
-            duration: dur ?? 1.2,
-            ease: easeSmooth as number[],
-            delay: t.bg,
-          }}
-        >
-          <HeroSlideshow />
-        </motion.div>
-
-        {/* ----------------------------------------------------------------
-            Hero content
-        ---------------------------------------------------------------- */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 pt-10 pb-8 sm:pb-12 w-full flex-grow flex flex-col justify-center">
-          {/* Badges */}
+          {/* ── LEFT: Text content ──────────────────────────────────── */}
           <motion.div
-            className="flex flex-wrap items-center gap-3 mb-6"
-            initial="hidden"
-            animate={introComplete ? 'visible' : 'hidden'}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.12, delayChildren: t.badge1 } },
-            }}
+            initial={prefersReducedMotion ? {} : { opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: dur ?? 0.8, ease: easeSmooth as number[] }}
           >
-            {/* Badge 1 */}
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: dur ?? 0.55, ease: ease as number[] }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#E2C98F]/30 text-[#E2C98F] text-xs font-semibold tracking-widest uppercase"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#E2C98F] animate-ping" />
-              <span>Madikeri, Coorg • Altitude 1,150m</span>
-            </motion.div>
+            {/* Location badge */}
+            <div className="flex flex-wrap gap-2 mb-5">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 border border-[#E2C98F]/30 text-[#C5A059] text-xs font-semibold tracking-wide">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E2C98F] animate-ping" />
+                <span>Madikeri, Coorg • 1,150m Altitude</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 border border-stone-200 text-stone-700 text-xs font-semibold">
+                <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span>13 Boutique Suites</span>
+              </div>
+            </div>
 
-            {/* Badge 2 */}
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: dur ?? 0.55, ease: ease as number[] }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1E4D38]/80 backdrop-blur-md border border-emerald-500/30 text-emerald-200 text-xs font-semibold"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#E2C98F]" />
-              <span>13 Boutique Hillside Suites</span>
-            </motion.div>
+            {/* Headline */}
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-normal tracking-tight text-[#1a1a1a] leading-[1.1] mb-3">
+              A Misty Hilltop
+              <br />
+              <span className="italic text-[#C5A059] font-light">Sanctuary</span>
+            </h1>
+            <p className="font-serif text-xl sm:text-2xl lg:text-3xl italic text-stone-600 font-light mb-5 leading-snug">
+              Above The Emerald Clouds
+            </p>
 
-            {/* Badge 3 */}
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: dur ?? 0.55, ease: ease as number[] }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-950/60 backdrop-blur-md border border-amber-500/30 text-amber-200 text-xs font-semibold"
-            >
-              <MapPin className="w-3.5 h-3.5 text-[#E2C98F]" />
-              <span>Centre Point of All Tourist Sights</span>
-            </motion.div>
+            {/* Body */}
+            <p className="text-sm sm:text-base text-stone-600 font-light leading-relaxed mb-6 max-w-lg">
+              Welcome to{' '}
+              <strong className="text-[#1a1a1a] font-semibold">Coorg Heritage Hill View Resort</strong>
+              —an intimate Kodava retreat of just 13 rooms in Madikeri. Wake up to sweeping cloud valleys, enjoy crackling evening bonfires, walk along natural mountain streams.
+            </p>
+
+            {/* Pillar icons */}
+            <div className="flex flex-wrap gap-x-4 gap-y-2 mb-7">
+              {pillars.map(({ icon, label }) => (
+                <span key={label} className="flex items-center gap-1.5 text-xs text-stone-600 font-medium">
+                  {icon}
+                  {label}
+                </span>
+              ))}
+            </div>
+
+            {/* Status chips */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-stone-100 border border-stone-200 text-xs text-stone-700">
+                <Mountain className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span>20°C • Pleasant &amp; Misty</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-stone-100 border border-stone-200 text-xs text-stone-700">
+                <Droplets className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Stream Flowing</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-stone-100 border border-stone-200 text-xs text-stone-700">
+                <Flame className="w-3.5 h-3.5 text-amber-400" />
+                <span>Campfire 7:30 PM</span>
+              </div>
+            </div>
+
+            {/* CTA buttons */}
+            <div className="flex flex-wrap gap-3">
+              <motion.button
+                onClick={() => onOpenBookingWithDetails?.({ checkIn, checkOut, roomCategory, guests })}
+                className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#E2C98F] text-[#1a1a1a] font-bold text-sm shadow-lg hover:bg-amber-200 transition-colors"
+                whileHover={prefersReducedMotion ? {} : { scale: 1.04 }}
+                whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
+              >
+                <CalendarCheck className="w-4 h-4" />
+                Book Your Stay
+              </motion.button>
+              <a
+                href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hello%20Coorg%20Heritage%20Hill%20View%20Resort!%20I%20would%20like%20to%20know%20about%20room%20availability.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-5 py-3 rounded-full bg-stone-100 border border-stone-300 text-[#1a1a1a] font-semibold text-sm hover:bg-stone-100 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4 text-[#C5A059]" />
+                WhatsApp Us
+              </a>
+            </div>
           </motion.div>
 
-          {/* Headline */}
-          <div className="max-w-4xl mb-8">
-            {/* Line 1 — masked upward reveal */}
-            <div className="overflow-hidden mb-1">
-              <motion.h1
-                className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-[1.1]"
-                initial={prefersReducedMotion ? {} : { y: '100%', opacity: 0 }}
-                animate={
-                  introComplete
-                    ? { y: '0%', opacity: 1 }
-                    : {}
-                }
-                transition={{
-                  duration: dur ?? 0.85,
-                  ease: easeSmooth as number[],
-                  delay: t.h1Line1,
-                }}
-              >
-                A Misty Hilltop Sanctuary
-              </motion.h1>
-            </div>
-
-            {/* Line 2 — italic gold, slightly later */}
-            <div className="overflow-hidden mb-6">
-              <motion.span
-                className="block font-serif text-4xl sm:text-5xl lg:text-6xl italic text-[#E2C98F] font-light tracking-tight leading-[1.1]"
-                initial={prefersReducedMotion ? {} : { y: '100%', opacity: 0 }}
-                animate={
-                  introComplete
-                    ? { y: '0%', opacity: 1 }
-                    : {}
-                }
-                transition={{
-                  duration: dur ?? 0.85,
-                  ease: easeSmooth as number[],
-                  delay: t.h1Line2,
-                }}
-              >
-                Above The Emerald Clouds
-              </motion.span>
-            </div>
-
-            {/* Body copy */}
-            <motion.p
-              className="font-sans text-base sm:text-lg text-stone-200 max-w-2xl font-light leading-relaxed mb-6"
-              initial={prefersReducedMotion ? {} : { opacity: 0, y: 22 }}
-              animate={introComplete ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: dur ?? 0.75,
-                ease: ease as number[],
-                delay: t.body,
-              }}
-            >
-              Welcome to{' '}
-              <strong className="text-white font-semibold">
-                Coorg Heritage Hill View Resort
-              </strong>
-              —an intimate Kodava retreat of just 13 rooms in Madikeri. Wake
-              up to sweeping cloud valleys, enjoy crackling evening bonfires,
-              walk along natural mountain streams, and explore every Coorg
-              landmark with zero travel fatigue.
-            </motion.p>
-
-            {/* Pillar highlights — staggered */}
-            <motion.div
-              className="flex flex-wrap items-center gap-y-3 gap-x-6 text-sm text-stone-300 font-medium"
-              initial="hidden"
-              animate={introComplete ? 'visible' : 'hidden'}
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.1,
-                    delayChildren: t.pillars,
-                  },
-                },
-              }}
-            >
-              {[
-                { icon: <Mountain className="w-4 h-4 text-[#E2C98F]" />, label: 'Panoramic Hill View Vistas' },
-                { icon: <Flame className="w-4 h-4 text-[#E2C98F]" />, label: 'Nightly Fire Camp & Music' },
-                { icon: <Droplets className="w-4 h-4 text-[#E2C98F]" />, label: 'Natural Mountain Stream' },
-                { icon: <Compass className="w-4 h-4 text-[#E2C98F]" />, label: "5km to Raja's Seat & Temples" },
-              ].map(({ icon, label }) => (
-                <motion.span
-                  key={label}
-                  variants={fadeUp}
-                  transition={{ duration: dur ?? 0.5, ease: ease as number[] }}
-                  className="flex items-center gap-2"
-                >
-                  {icon}
-                  <span>{label}</span>
-                </motion.span>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Status bar */}
+          {/* ── RIGHT: Slideshow ─────────────────────────────────────── */}
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 sm:p-4 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 max-w-3xl text-xs sm:text-sm text-stone-200 mb-8"
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: 24 }}
-            animate={introComplete ? { opacity: 1, y: 0 } : {}}
-            transition={{
-              duration: dur ?? 0.7,
-              ease: ease as number[],
-              delay: t.statusBar,
-            }}
+            className="w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] xl:aspect-square max-h-[520px]"
+            initial={prefersReducedMotion ? {} : { opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: dur ?? 0.9, ease: easeSmooth as number[], delay: 0.15 }}
           >
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-[#E2C98F] shrink-0">
-                <Mountain className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="block text-[10px] text-stone-400 uppercase tracking-wider">
-                  Madikeri Weather
-                </span>
-                <span className="font-semibold text-white">
-                  20°C • Pleasant &amp; Misty
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2.5 sm:border-l sm:border-white/10 sm:pl-3">
-              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-emerald-400 shrink-0">
-                <Droplets className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="block text-[10px] text-stone-400 uppercase tracking-wider">
-                  Water Stream
-                </span>
-                <span className="font-semibold text-white">
-                  Flowing &amp; Crystal Pure
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2.5 sm:border-l sm:border-white/10 sm:pl-3">
-              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-amber-400 shrink-0">
-                <Flame className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="block text-[10px] text-stone-400 uppercase tracking-wider">
-                  Night Campfire
-                </span>
-                <span className="font-semibold text-white">
-                  7:30 PM Every Evening
-                </span>
-              </div>
-            </div>
+            <HeroSlideshow />
           </motion.div>
         </div>
+      </div>
 
-        {/* ----------------------------------------------------------------
-            Quick Booking Bar — slides up from below
-        ---------------------------------------------------------------- */}
-        <motion.div
-          className="relative z-20 w-full px-4 sm:px-8 pb-8 max-w-7xl mx-auto"
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 40 }}
-          animate={introComplete ? { opacity: 1, y: 0 } : {}}
-          transition={{
-            duration: dur ?? 0.8,
-            ease: easeSmooth as number[],
-            delay: t.bookingBar,
-          }}
-        >
-          <div className="bg-[#FAF8F5] text-[#1E2522] rounded-2xl shadow-2xl p-4 sm:p-6 border border-stone-200">
-            <div className="flex items-center justify-between mb-4 pb-2 border-b border-stone-200/60">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-                <span className="text-xs uppercase tracking-widest font-bold text-[#0A2016]">
-                  Direct Reservation &amp; Best Rate Guarantee
-                </span>
-              </div>
-              <span className="text-xs text-stone-500 hidden sm:inline-block">
-                Only 13 Rooms • Instant Manager Confirmation
+      {/* ── Quick Booking Bar ─────────────────────────────────────────── */}
+      <div className="w-full bg-white text-[#1a1a1a] shadow-2xl border-t border-stone-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-5 sm:py-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
+              <span className="text-xs uppercase tracking-widest font-bold text-[#1a1a1a]">
+                Direct Reservation — Best Rate Guarantee
               </span>
             </div>
-
-            <form
-              onSubmit={handleSubmit}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4 items-end"
-            >
-              {/* Check-In */}
-              <div className="space-y-1.5">
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-[#C5A059]" /> Check-In
-                </label>
-                <input
-                  type="date"
-                  value={checkIn}
-                  min={today}
-                  onChange={(e) => setCheckIn(e.target.value)}
-                  className="w-full bg-stone-100 hover:bg-stone-200/80 focus:bg-white px-3 py-2.5 rounded-xl text-stone-800 text-sm font-medium border border-transparent focus:border-[#C5A059] outline-none transition-colors"
-                  required
-                />
-              </div>
-
-              {/* Check-Out */}
-              <div className="space-y-1.5">
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-[#C5A059]" /> Check-Out
-                </label>
-                <input
-                  type="date"
-                  value={checkOut}
-                  min={checkIn || today}
-                  onChange={(e) => setCheckOut(e.target.value)}
-                  className="w-full bg-stone-100 hover:bg-stone-200/80 focus:bg-white px-3 py-2.5 rounded-xl text-stone-800 text-sm font-medium border border-transparent focus:border-[#C5A059] outline-none transition-colors"
-                  required
-                />
-              </div>
-
-              {/* Room Category */}
-              <div className="space-y-1.5">
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider flex items-center gap-1.5">
-                  <BedDouble className="w-3.5 h-3.5 text-[#C5A059]" /> Suite / Room
-                </label>
-                <select
-                  value={roomCategory}
-                  onChange={(e) => setRoomCategory(e.target.value)}
-                  className="w-full bg-stone-100 hover:bg-stone-200/80 focus:bg-white px-3 py-2.5 rounded-xl text-stone-800 text-sm font-medium border border-transparent focus:border-[#C5A059] outline-none transition-colors cursor-pointer"
-                >
-                  <option value="Superior Hill View Suite (AC)">Superior Hill View Suite (AC)</option>
-                  <option value="Misty Valley Suite (AC)">Misty Valley Suite (AC)</option>
-                  <option value="Heritage Attic Cottage (Non-AC)">Heritage Attic Cottage (Non-AC)</option>
-                  <option value="Grand Family Valley Room">Grand Family Valley Room</option>
-                  <option value="Entire 13-Room Resort Buyout">Entire 13-Room Sanctuary Buyout</option>
-                </select>
-              </div>
-
-              {/* Guests */}
-              <div className="space-y-1.5">
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5 text-[#C5A059]" /> Guests
-                </label>
-                <select
-                  value={guests}
-                  onChange={(e) => setGuests(e.target.value)}
-                  className="w-full bg-stone-100 hover:bg-stone-200/80 focus:bg-white px-3 py-2.5 rounded-xl text-stone-800 text-sm font-medium border border-transparent focus:border-[#C5A059] outline-none transition-colors cursor-pointer"
-                >
-                  <option value="2 Adults">2 Adults (1 Room)</option>
-                  <option value="2 Adults + 1 Child">2 Adults + 1 Child</option>
-                  <option value="3 - 4 Adults (Loft/Family)">3 – 4 Adults (Family Suite)</option>
-                  <option value="Corporate / Family Group (10+)">Corporate / Family Group (10+)</option>
-                  <option value="Full Resort Buyout (~40 Guests)">Entire 13-Room Buyout (~40 Guests)</option>
-                </select>
-              </div>
-
-              {/* Submit */}
-              <div className="sm:col-span-2 lg:col-span-1">
-                <motion.button
-                  type="submit"
-                  className="w-full py-3 px-4 rounded-xl bg-[#0A2016] text-[#FAF8F5] hover:bg-[#133E2B] font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-colors"
-                  whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
-                  whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
-                  transition={{ duration: 0.18, ease: ease as number[] }}
-                >
-                  <span>Check Rates</span>
-                  <motion.span
-                    animate={prefersReducedMotion ? {} : { x: [0, 3, 0] }}
-                    transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1 }}
-                  >
-                    <ArrowRight className="w-4 h-4 text-[#E2C98F]" />
-                  </motion.span>
-                </motion.button>
-              </div>
-            </form>
+            <span className="text-xs text-stone-500 hidden sm:block">Only 13 Rooms • Instant Confirmation</span>
           </div>
-        </motion.div>
-      </section>
-    </>
+
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3 items-end"
+          >
+            {/* Check-In */}
+            <div className="space-y-1">
+              <label className="block text-[10px] font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
+                <Calendar className="w-3 h-3 text-[#C5A059]" /> Check-In
+              </label>
+              <input
+                type="date"
+                value={checkIn}
+                min={today}
+                onChange={(e) => setCheckIn(e.target.value)}
+                className="w-full bg-stone-100 hover:bg-stone-200/80 focus:bg-white px-3 py-2.5 rounded-xl text-stone-800 text-sm font-medium border border-transparent focus:border-[#C5A059] outline-none transition-colors"
+                required
+              />
+            </div>
+
+            {/* Check-Out */}
+            <div className="space-y-1">
+              <label className="block text-[10px] font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
+                <Calendar className="w-3 h-3 text-[#C5A059]" /> Check-Out
+              </label>
+              <input
+                type="date"
+                value={checkOut}
+                min={checkIn || today}
+                onChange={(e) => setCheckOut(e.target.value)}
+                className="w-full bg-stone-100 hover:bg-stone-200/80 focus:bg-white px-3 py-2.5 rounded-xl text-stone-800 text-sm font-medium border border-transparent focus:border-[#C5A059] outline-none transition-colors"
+                required
+              />
+            </div>
+
+            {/* Room Category */}
+            <div className="space-y-1 col-span-2 sm:col-span-1">
+              <label className="block text-[10px] font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
+                <BedDouble className="w-3 h-3 text-[#C5A059]" /> Room Type
+              </label>
+              <select
+                value={roomCategory}
+                onChange={(e) => setRoomCategory(e.target.value)}
+                className="w-full bg-stone-100 hover:bg-stone-200/80 focus:bg-white px-3 py-2.5 rounded-xl text-stone-800 text-sm font-medium border border-transparent focus:border-[#C5A059] outline-none transition-colors cursor-pointer"
+              >
+                <option value="Superior Hill View Suite (AC)">Superior Hill View Suite (AC)</option>
+                <option value="Misty Valley Suite (AC)">Misty Valley Suite (AC)</option>
+                <option value="Heritage Attic Cottage (Non-AC)">Heritage Attic Cottage (Non-AC)</option>
+                <option value="Grand Family Valley Room">Grand Family Valley Room</option>
+                <option value="Entire 13-Room Resort Buyout">Entire Resort Buyout</option>
+              </select>
+            </div>
+
+            {/* Guests */}
+            <div className="space-y-1 col-span-2 sm:col-span-1">
+              <label className="block text-[10px] font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
+                <Users className="w-3 h-3 text-[#C5A059]" /> Guests
+              </label>
+              <select
+                value={guests}
+                onChange={(e) => setGuests(e.target.value)}
+                className="w-full bg-stone-100 hover:bg-stone-200/80 focus:bg-white px-3 py-2.5 rounded-xl text-stone-800 text-sm font-medium border border-transparent focus:border-[#C5A059] outline-none transition-colors cursor-pointer"
+              >
+                <option value="2 Adults">2 Adults</option>
+                <option value="2 Adults + 1 Child">2 Adults + 1 Child</option>
+                <option value="3 - 4 Adults (Loft/Family)">3–4 Adults (Family)</option>
+                <option value="Corporate / Family Group (10+)">Group (10+)</option>
+                <option value="Full Resort Buyout (~40 Guests)">Full Buyout (~40)</option>
+              </select>
+            </div>
+
+            {/* Submit */}
+            <div className="col-span-2 sm:col-span-4 lg:col-span-1">
+              <motion.button
+                type="submit"
+                className="w-full py-2.5 px-4 rounded-xl bg-stone-800 text-white hover:bg-stone-700 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-colors"
+                whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+                whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
+              >
+                Check Rates
+                <ArrowRight className="w-4 h-4 text-[#C5A059]" />
+              </motion.button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
   );
 };
+

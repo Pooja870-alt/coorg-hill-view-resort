@@ -65,7 +65,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
   ] as const;
 
   return (
-    <section id="rooms" className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1E2522]">
+    <section id="rooms" className="w-full py-20 lg:py-28 bg-[#FAF8F5] text-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
         {/* ── Section heading ─────────────────────────────────────────── */}
@@ -77,7 +77,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={viewport}
                 transition={childTransition}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-widest"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 text-stone-700 text-xs font-bold uppercase tracking-widest"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>Exclusive Boutique Sanctuary</span>
@@ -90,7 +90,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={viewport}
                 transition={{ ...childTransition, delay: 0.1 }}
-                className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#0A2016] tracking-tight leading-tight"
+                className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#1a1a1a] tracking-tight leading-tight"
               >
                 13 Handcrafted Hillside Rooms &amp; Suites
               </motion.h2>
@@ -115,7 +115,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
             className="flex items-center gap-3"
           >
             <div className="px-4 py-2 rounded-2xl bg-white border border-stone-200 shadow-sm text-xs font-semibold text-stone-700">
-              <span className="text-[#0A2016] font-bold text-sm">Total 13 Rooms</span> • AC &amp; Non-AC Available
+              <span className="text-[#1a1a1a] font-bold text-sm">Total 13 Rooms</span> • AC &amp; Non-AC Available
             </div>
           </motion.div>
         </div>
@@ -134,7 +134,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
               onClick={() => setFilter(tab.id)}
               className={`px-4 sm:px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 ${
                 filter === tab.id
-                  ? 'bg-[#0A2016] text-[#FAF8F5] shadow-md'
+                  ? 'bg-white text-[#1a1a1a] shadow-md'
                   : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
               }`}
               whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
@@ -188,13 +188,13 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
 
                 {/* Top badges */}
                 <div className="absolute top-3.5 left-3.5 flex items-center gap-2">
-                  <span className="px-2.5 py-1 rounded-full bg-[#0A2016]/90 backdrop-blur-md text-[#E2C98F] text-[11px] font-bold uppercase tracking-wider">
+                  <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#C5A059] text-[11px] font-bold uppercase tracking-wider">
                     Room #{room.roomNumber < 10 ? `0${room.roomNumber}` : room.roomNumber}
                   </span>
                   <span className={`px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider backdrop-blur-md ${
                     room.category === 'ac'
                       ? 'bg-blue-900/80 text-blue-100'
-                      : 'bg-emerald-900/80 text-emerald-100'
+                      : 'bg-stone-700/80 text-stone-100'
                   }`}>
                     {room.category === 'ac' ? 'AC Suite' : 'Non-AC Loft'}
                   </span>
@@ -211,11 +211,11 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
                 </div>
 
                 <div className="absolute bottom-3 left-3 right-3 text-white">
-                  <span className="text-[11px] text-[#E2C98F] font-bold uppercase tracking-widest block mb-0.5">
+                  <span className="text-[11px] text-[#C5A059] font-bold uppercase tracking-widest block mb-0.5">
                     {room.badge}
                   </span>
-                  <div className="flex items-center gap-1.5 text-xs text-stone-200">
-                    <Mountain className="w-3.5 h-3.5 text-[#E2C98F]" />
+                  <div className="flex items-center gap-1.5 text-xs text-stone-700">
+                    <Mountain className="w-3.5 h-3.5 text-[#C5A059]" />
                     <span className="truncate">{room.view}</span>
                   </div>
                 </div>
@@ -224,7 +224,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
               {/* Card body */}
               <div className="p-6 flex-grow flex flex-col justify-between">
                 <div>
-                  <h3 className="font-serif text-xl sm:text-2xl text-[#0A2016] font-medium mb-2 leading-snug">
+                  <h3 className="font-serif text-xl sm:text-2xl text-[#1a1a1a] font-medium mb-2 leading-snug">
                     {room.name}
                   </h3>
                   <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mb-4 line-clamp-2">
@@ -262,7 +262,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
                 <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
                   <div>
                     <span className="block text-[10px] text-stone-500 uppercase tracking-wider font-semibold">Direct Tariff</span>
-                    <span className="font-serif text-lg font-bold text-[#0A2016]">
+                    <span className="font-serif text-lg font-bold text-[#1a1a1a]">
                       ₹{room.pricePerNight.toLocaleString()}{' '}
                       <span className="text-xs font-sans font-normal text-stone-500">/ night</span>
                     </span>
@@ -279,7 +279,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
 
                     <motion.button
                       onClick={() => handleBookDirect(room)}
-                      className="px-3.5 py-2.5 rounded-xl bg-[#0A2016] text-[#FAF8F5] hover:bg-[#133E2B] text-xs font-semibold uppercase tracking-wider shadow transition-colors"
+                      className="px-3.5 py-2.5 rounded-xl bg-white text-[#1a1a1a] hover:bg-stone-100 text-xs font-semibold uppercase tracking-wider shadow transition-colors"
                       whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                       whileTap={prefersReducedMotion ? {} : { scale: 0.96 }}
                       transition={{ duration: 0.18, ease: ease as number[] }}
@@ -299,17 +299,17 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: prefersReducedMotion ? 0.01 : 0.75, ease: easeSmooth as number[], delay: 0.1 }}
-          className="mt-14 rounded-3xl bg-gradient-to-r from-[#133E2B] to-[#0A2016] text-white p-6 sm:p-10 shadow-2xl border border-[#C5A059]/30 flex flex-col lg:flex-row items-center justify-between gap-8"
+          className="mt-14 rounded-3xl bg-white text-[#1a1a1a] p-6 sm:p-10 shadow-lg border border-stone-200 flex flex-col lg:flex-row items-center justify-between gap-8"
         >
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#E2C98F] text-xs font-bold uppercase tracking-widest mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 text-[#C5A059] text-xs font-bold uppercase tracking-widest mb-3">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Full Resort Private Sanctuary Buyout</span>
             </div>
             <h3 className="font-serif text-2xl sm:text-3xl font-medium mb-3">
               Planning a Family Reunion, Corporate Offsite, or Wedding Retreat?
             </h3>
-            <p className="text-sm text-stone-300 leading-relaxed">
+            <p className="text-sm text-stone-600 leading-relaxed">
               Reserve all 13 rooms exclusively for your group (accommodating up to 40 guests). Enjoy private access to the bonfire arena, rain dance pavilion, scenic dining hall, indoor games, and bespoke Kodava catering.
             </p>
           </div>
@@ -319,7 +319,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
               href={`https://wa.me/${RESORT_INFO.whatsappNumber}?text=Hi%20Coorg%20Heritage%20Hill%20View%20Resort,%20we%20are%20planning%20a%20full%2013-room%20buyout%20for%20our%20group.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-full bg-[#E2C98F] text-[#0A2016] hover:bg-white text-xs font-bold uppercase tracking-wider shadow-lg transition-colors"
+              className="px-6 py-3 rounded-full bg-[#E2C98F] text-[#1a1a1a] hover:bg-white text-xs font-bold uppercase tracking-wider shadow-lg transition-colors"
               whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
               transition={{ duration: 0.18, ease: ease as number[] }}
@@ -328,7 +328,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
             </motion.a>
             <a
               href={`tel:${RESORT_INFO.phone}`}
-              className="px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold uppercase tracking-wider transition-colors"
+              className="px-5 py-3 rounded-full bg-stone-100 hover:bg-stone-100 text-[#1a1a1a] text-xs font-semibold uppercase tracking-wider transition-colors"
             >
               Call Manager: {RESORT_INFO.phoneDisplay}
             </a>
@@ -358,7 +358,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
               className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
             >
               <motion.div
-                className="bg-white text-[#1E2522] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-stone-200 pointer-events-auto"
+                className="bg-white text-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-stone-200 pointer-events-auto"
                 variants={
                   prefersReducedMotion
                     ? { hidden: { opacity: 0 }, visible: { opacity: 1 }, exit: { opacity: 0 } }
@@ -386,7 +386,7 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
                   </button>
 
                   <div className="absolute bottom-4 left-6 right-6 text-white">
-                    <span className="text-xs font-bold text-[#E2C98F] uppercase tracking-widest block mb-1">
+                    <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest block mb-1">
                       Room #{modalRoom.roomNumber} • {modalRoom.badge}
                     </span>
                     <h3 className="font-serif text-2xl sm:text-3xl font-medium">{modalRoom.name}</h3>
@@ -396,13 +396,13 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
                 {/* Modal content */}
                 <div className="p-6 sm:p-8 space-y-6">
                   <div>
-                    <h4 className="text-xs uppercase tracking-wider font-bold text-stone-400 mb-2">Room Description</h4>
+                    <h4 className="text-xs uppercase tracking-wider font-bold text-stone-500 mb-2">Room Description</h4>
                     <p className="text-sm text-stone-700 leading-relaxed">{modalRoom.description}</p>
                   </div>
 
                   {modalRoom.additionalImages.length > 0 && (
                     <div>
-                      <h4 className="text-xs uppercase tracking-wider font-bold text-stone-400 mb-2.5">More Photos</h4>
+                      <h4 className="text-xs uppercase tracking-wider font-bold text-stone-500 mb-2.5">More Photos</h4>
                       <div className="grid grid-cols-2 gap-3">
                         {modalRoom.additionalImages.map((img, idx) => (
                           <img
@@ -418,25 +418,25 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
 
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs">
                     <div>
-                      <span className="block text-[10px] uppercase font-bold text-stone-400">View</span>
+                      <span className="block text-[10px] uppercase font-bold text-stone-500">View</span>
                       <span className="font-medium text-stone-800">{modalRoom.view}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] uppercase font-bold text-stone-400">Bedding</span>
+                      <span className="block text-[10px] uppercase font-bold text-stone-500">Bedding</span>
                       <span className="font-medium text-stone-800">{modalRoom.bedType}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] uppercase font-bold text-stone-400">Max Capacity</span>
+                      <span className="block text-[10px] uppercase font-bold text-stone-500">Max Capacity</span>
                       <span className="font-medium text-stone-800">{modalRoom.capacity}</span>
                     </div>
                   </div>
 
                   <div>
-                    <h4 className="text-xs uppercase tracking-wider font-bold text-stone-400 mb-3">Included Amenities &amp; Perks</h4>
+                    <h4 className="text-xs uppercase tracking-wider font-bold text-stone-500 mb-3">Included Amenities &amp; Perks</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-stone-700">
                       {modalRoom.features.map((feat, idx) => (
                         <div key={idx} className="flex items-center gap-2">
-                          <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <Check className="w-4 h-4 text-[#C5A059] shrink-0" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -445,8 +445,8 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
 
                   <div className="pt-6 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
-                      <span className="block text-[10px] text-stone-400 uppercase font-semibold">Tariff (Direct Guarantee)</span>
-                      <span className="font-serif text-2xl font-bold text-[#0A2016]">
+                      <span className="block text-[10px] text-stone-500 uppercase font-semibold">Tariff (Direct Guarantee)</span>
+                      <span className="font-serif text-2xl font-bold text-[#1a1a1a]">
                         ₹{modalRoom.pricePerNight.toLocaleString()}{' '}
                         <span className="text-xs font-sans font-normal text-stone-500">/ night</span>
                       </span>
@@ -467,12 +467,12 @@ export const RoomsSection: React.FC<RoomsSectionProps> = ({ onSelectRoomForBooki
                           setModalRoom(null);
                           handleBookDirect(r);
                         }}
-                        className="flex-1 sm:flex-none px-5 py-3 rounded-xl bg-[#0A2016] text-white hover:bg-[#133E2B] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-colors"
+                        className="flex-1 sm:flex-none px-5 py-3 rounded-xl bg-white text-[#1a1a1a] hover:bg-stone-100 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-colors"
                         whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
                         whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
                         transition={{ duration: 0.18, ease: ease as number[] }}
                       >
-                        <MessageCircle className="w-4 h-4 text-[#E2C98F]" />
+                        <MessageCircle className="w-4 h-4 text-[#C5A059]" />
                         <span>Confirm on WhatsApp</span>
                       </motion.button>
                     </div>
