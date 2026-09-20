@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   motion,
   useReducedMotion,
@@ -88,6 +88,96 @@ const HeroIntro: React.FC<{ onDone: () => void }> = ({ onDone }) => {
 };
 
 // ---------------------------------------------------------------------------
+// Slideshow images — served from /public/images/
+// ---------------------------------------------------------------------------
+const HERO_IMAGES = [
+  '/images/IMG-20260920-WA0004.jpg',
+  '/images/IMG-20260920-WA0008.jpg',
+  '/images/IMG-20260920-WA0013.jpg',
+  '/images/IMG-20260920-WA0014.jpg',
+  '/images/IMG-20260920-WA0016.jpg',
+];
+
+const SLIDE_INTERVAL_MS = 4500;
+
+// Flip-style crossfade between hero images
+const HeroSlideshow: React.FC = () => {
+  const [current, setCurrent] = useState(0);
+  const [prev, setPrev] = useState<number | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setCurrent((c) => {
+        setPrev(c);
+        return (c + 1) % HERO_IMAGES.length;
+      });
+    }, SLIDE_INTERVAL_MS);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden [perspective:1200px]">
+      {/* Previous slide — flip out */}
+      {prev !== null && (
+        <motion.div
+          key={`prev-${prev}`}
+          className="absolute inset-0"
+          initial={{ rotateY: 0, opacity: 1 }}
+          animate={{ rotateY: -90, opacity: 0 }}
+          transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1] }}
+          style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
+        >
+          <img
+            src={HERO_IMAGES[prev]}
+            alt=""
+            className="w-full h-full object-cover object-center brightness-[0.82]"
+          />
+        </motion.div>
+      )}
+
+      {/* Current slide — flip in */}
+      <motion.div
+        key={`curr-${current}`}
+        className="absolute inset-0"
+        initial={{ rotateY: 90, opacity: 0 }}
+        animate={{ rotateY: 0, opacity: 1 }}
+        transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1] }}
+        style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
+      >
+        <img
+          src={HERO_IMAGES[current]}
+          alt="Coorg Heritage Hill View Resort"
+          className="w-full h-full object-cover object-center brightness-[0.82] animate-kenburns"
+        />
+      </motion.div>
+
+      {/* Gradient overlays — same as before */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0A2016] via-[#0A2016]/40 to-[#0A2016]/60 mix-blend-multiply pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0A2016]/85 via-transparent to-[#0A2016]/50 pointer-events-none" />
+
+      {/* Slide indicator dots */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {HERO_IMAGES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => { setPrev(current); setCurrent(i); }}
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+              i === current
+                ? 'bg-[#E2C98F] w-4'
+                : 'bg-white/40 hover:bg-white/70'
+            }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// ---------------------------------------------------------------------------
 // Main Hero component
 // ---------------------------------------------------------------------------
 export const Hero: React.FC<HeroProps> = ({ onOpenBookingWithDetails }) => {
@@ -154,26 +244,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingWithDetails }) => {
         className="relative w-full min-h-[96vh] flex flex-col justify-between overflow-hidden bg-[#0A2016] text-[#FAF8F5] pt-28 sm:pt-32"
       >
         {/* ----------------------------------------------------------------
-            Background — scale from 1.07 → 1 then hands off to kenburns
+            Background — slideshow with flip transition
         ---------------------------------------------------------------- */}
         <motion.div
-          className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
-          initial={prefersReducedMotion ? {} : { scale: 1.07, opacity: 0 }}
-          animate={introComplete ? { scale: 1, opacity: 1 } : {}}
+          className="absolute inset-0 z-0 pointer-events-none"
+          initial={prefersReducedMotion ? {} : { opacity: 0 }}
+          animate={introComplete ? { opacity: 1 } : {}}
           transition={{
-            duration: dur ?? 1.6,
+            duration: dur ?? 1.2,
             ease: easeSmooth as number[],
             delay: t.bg,
-            opacity: { duration: dur ?? 1.2, delay: t.bg },
           }}
         >
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy93_FLtW3hjOjNufX5VE7HTZJ5AFj96-wYOKD1FZBfiHr5UkUwEZWifgDizSDuyhM1QTWSw-ixArJfVvO5its6CAypyb0Ik5iBSLQkJuuSKbomSS4kl1_1l-QgTC_9W9tvVlQyYIfKYJKx4Zp5J3xgFqk7oc64OIQe3M63buX1dAUQQqsleZUhobqyJNy_OSOU3cW7KVb-pQlnD5BOrV9rHRFzARliqweWxL4MyFUL7xnM1bMDJjYpVVwFW0CI40_6ds"
-            alt="Panoramic misty mountains and coffee plantation canopy at Coorg Heritage Hill View Resort"
-            className="w-full h-full object-cover object-center animate-kenburns opacity-75 filter brightness-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A2016] via-[#0A2016]/40 to-[#0A2016]/60 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A2016]/85 via-transparent to-[#0A2016]/50" />
+          <HeroSlideshow />
         </motion.div>
 
         {/* ----------------------------------------------------------------
